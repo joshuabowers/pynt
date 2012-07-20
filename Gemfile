@@ -31,14 +31,19 @@ end
 gem 'haml-rails'
 gem 'jquery-rails'
 
+gem 'kramdown'
+
 group :test, :development do
   gem 'rspec-rails', "~> 2.11.0"
-  gem 'cucumber-rails'
   gem 'capybara'
   gem 'fabrication'
   gem 'database_cleaner'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
+end
+
+group :test do
+  gem 'cucumber-rails'
 end
 
 # To use ActiveModel has_secure_password

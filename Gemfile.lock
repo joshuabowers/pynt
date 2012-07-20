@@ -96,6 +96,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
+    kramdown (0.13.7)
     libwebsocket (0.1.4)
       addressable
     listen (0.4.7)
@@ -210,6 +211,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  kramdown
   mongoid (~> 3.0.1)
   progressbar
   rails (= 3.2.6)
