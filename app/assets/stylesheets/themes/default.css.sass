@@ -1,0 +1,56 @@
+html, body
+  width: 100%
+  height: 100%
+  margin: 0
+  padding: 0
+  
+#container
+  width: 100%
+  height: 100%
+  +linear-gradient(tint(blue, 75%) 0, shade(blue, 75%) 100%)
+  +display-box
+  +box-align(stretch)
+  +box-orient(vertical)
+  > header, > nav
+    +box-flex
+  header
+    +display-box
+    +box-orient(horizontal)
+    +box-align(end)
+    margin: 0em 5em
+    margin-top: 0.5em
+    h1
+      margin: 0
+      margin-bottom: 5px
+      +box-flex(8)
+      font-family: $georgia
+      font-size: 50pt
+      vertical-align: middle
+      color: white
+      text-shadow: 0.1em 0.1em 0.05em black
+      img
+        max-height: 75px
+        vertical-align: text-bottom
+    .gamer-details
+      +box-flex(1)
+      text-align: right
+      +linear-gradient(tint(green, 20%), tint(green, 40%) 75%, shade(green, 40%))
+      padding: 0.1em 0.5em
+      color: white
+      text-shadow: 0 0 1em darken(white, 40%)
+      border-radius: 0.5em 0.5em 0 0
+  nav
+    +linear-gradient(lighten(black, 75%) 0, lighten(black, 50%) 50%, shade(blue, 100%) 100%)
+    +box-shadow(0 0.5em 10px lighten(black, 35%))
+    padding: 0.5em 5em
+    color: white
+    ul, li
+      margin: 0
+      padding: 0
+    ul
+      list-style-type: none
+    li
+      +inline-block
+  #content
+    +box-flex(1)
+    margin: 1em 5em

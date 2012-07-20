@@ -5,6 +5,8 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'thin'
+
 gem 'mongoid', '~> 3.0.1'
 gem 'devise', '~> 2.1.2'
 gem 'cancan', '~> 1.6.8'

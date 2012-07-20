@@ -1,4 +1,8 @@
 Pynt::Application.routes.draw do
+  match 'terminal/games/:game' => 'terminal#index', as: :terminal
+  # get "terminal/index"
+  post "terminal/execute"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

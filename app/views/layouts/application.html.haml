@@ -4,6 +4,20 @@
     %title P * Y * N * T
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
+    = favicon_link_tag "beer_mug_64.png", type: "image/png"
+    = favicon_link_tag "beer_mug_144.png", rel: "apple-touch-icon", type: "image/png"
     = csrf_meta_tags
   %body
-    = yield
+    #container
+      %header
+        %h1
+          = image_tag "beer_mug_144.png"
+          PYST
+        .gamer-details Username
+      %nav
+        %ul
+          %li Things
+          %li Go
+          %li Here
+      #content
+        = yield
