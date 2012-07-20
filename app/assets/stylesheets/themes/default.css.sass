@@ -13,7 +13,7 @@ html, body
   +box-orient(vertical)
   > header, > nav
     +box-flex
-  header
+  > header
     +display-box
     +box-orient(horizontal)
     +box-align(end)
@@ -39,7 +39,7 @@ html, body
       color: white
       text-shadow: 0 0 1em darken(white, 40%)
       border-radius: 0.5em 0.5em 0 0
-  nav
+  > nav
     +linear-gradient(lighten(black, 75%) 0, lighten(black, 50%) 50%, shade(blue, 100%) 100%)
     +box-shadow(0 0.5em 10px lighten(black, 35%))
     padding: 0.5em 5em
@@ -54,3 +54,6 @@ html, body
   #content
     +box-flex(1)
     margin: 1em 5em
+    +display-box
+    +box-align(stretch)
+    +box-orient(vertical)

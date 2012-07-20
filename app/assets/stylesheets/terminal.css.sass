@@ -1,3 +1,50 @@
-// Place all the styles related to the terminal controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
+#content
+  +display-box
+  +box-orient(vertical)
+  +box-align(stretch)
+  +linear-gradient(lighten(black, 85%) 0, lighten(black, 50%) 50%, lighten(black, 30%) 100%)
+  border-radius: 0.75em
+  padding: 0.5em 1em
+  > header, > footer
+    +box-flex
+    h2
+      font-family: $helvetica
+      text-align: center
+  > footer form
+    +display-box
+    +box-orient(horizontal)
+    +box-align(stretch)
+    .field
+      +box-flex(1)
+      padding-right: 0.25em
+      input
+        width: 100%
+    .actions
+      +box-flex
+      padding-left: 0.25em
+  #main
+    +box-flex(1)
+    +display-box
+    +box-orient(horizontal)
+    +box-align(stretch)
+    +box-direction(reverse)
+    margin: 0.5em 0
+    aside
+      +box-flex(1)
+      +display-box
+      +box-orient(vertical)
+      +box-align(stretch)
+      +box-direction(normal)
+      nav
+        +box-flex(1)
+        &#database
+          margin-bottom: 0.5em
+        &#inventory
+          margin-top: 0.5em
+    #history
+      +box-flex(2)
+      margin-right: 1em
+    #history, aside nav
+      border-radius: 0.75em
+      // +linear-gradient(white, )
+      background-color: black

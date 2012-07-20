@@ -1,0 +1,6 @@
+#terminal-command-line
+  = form_tag(terminal_execute_path, remote: true) do
+    .field
+      = text_field_tag 'command_line', nil, placeholder: "$"
+    .actions
+      = submit_tag 'Execute', name: nil
