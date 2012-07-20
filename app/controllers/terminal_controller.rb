@@ -3,5 +3,6 @@ class TerminalController < ApplicationController
   end
 
   def execute
+    @command_line = params['command_line']
   end
 end
