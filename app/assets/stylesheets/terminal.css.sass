@@ -31,7 +31,8 @@
     +box-direction(reverse)
     margin: 0.5em 0
     aside
-      +box-flex(1)
+      +box-flex
+      width: 20%
       +display-box
       +box-orient(vertical)
       +box-align(stretch)
@@ -43,7 +44,7 @@
         &#inventory
           margin-top: 0.5em
     #history
-      +box-flex(2)
+      +box-flex(1)
       margin-right: 1em
     #history, aside nav
       padding: 0.5em 1em
@@ -54,3 +55,4 @@
       color: tint(green, 55%)
       text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.25)
       overflow-y: scroll
+      -webkit-overflow-scrolling: touch
