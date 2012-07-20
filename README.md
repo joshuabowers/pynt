@@ -1,0 +1,3 @@
+h1. P * Y * N * T
+
+Your sitting in a relatively comfortable chair at your desk in front of your computer. Or maybe you are laying in bed with your smartphone or a tablet. (Really, does it matter? You've got something that has a web-browser that doesn't suck on it.) You open your browser and point it to google and perform a search for "interactive fiction". Amongst the top-results, PYNT, a new interactive fiction web hub.
