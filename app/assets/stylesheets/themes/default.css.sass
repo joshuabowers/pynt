@@ -42,6 +42,25 @@ html, body
       color: white
       text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.5)
       border-radius: 0.5em 0.5em 0 0
+      nav
+        ul, li
+          margin: 0
+          padding: 0
+        ul
+          list-style-type: none
+          +display-box
+          +box-orient(horizontal)
+          +box-pack(end)
+        li
+          +box-flex
+          padding: 0 0.2em
+          border-right: shade(green, 45%) solid 0.1em
+          border-left: shade(green, 15%) solid 0.1em
+          &:last-child
+            border-right: none
+            padding-right: 0
+          &:first-child
+            border-left: none
   > nav
     +linear-gradient(lighten(black, 75%) 0, lighten(black, 50%) 50%, shade(blue, 100%) 100%)
     +box-shadow(0 0.5em 10px hsla(0, 0%, 0%, 0.65))
