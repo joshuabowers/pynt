@@ -166,7 +166,7 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.11.0)
     rubyzip (0.9.9)
-    sass (3.1.20)
+    sass (3.2.0.alpha.275)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -223,6 +223,7 @@ DEPENDENCIES
   rails (= 3.2.6)
   rb-fsevent
   rspec-rails (~> 2.11.0)
+  sass (~> 3.2.0.alpha)
   sass-rails (~> 3.2.3)
   simple_form (~> 2.0.2)
   thin

@@ -1,2 +1,9 @@
+/* Note thate this method does not currently work properly; e.g. see https://github.com/nex3/sass/issues/429
+=directive-prefixer($directive-name, $instance-name: '')
+  @each $vender in -webkit-, -moz-, -ms-, -o-, ''
+    @#{$vender}#{$directive-name} #{$instance-name}
+      @content
+
 =keyframes($animation-name)
-  @-moz-keyframes #{$animation-name}
+  +directive-prefixer(keyframes, $animation-name)
+    @content
