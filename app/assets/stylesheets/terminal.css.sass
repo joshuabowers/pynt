@@ -2,8 +2,8 @@
   +display-box
   +box-orient(vertical)
   +box-align(stretch)
-  +linear-gradient(lighten(black, 85%) 0, lighten(black, 50%) 50%, lighten(black, 30%))
-  +box-shadow(0 0.5em 10px)
+  +linear-gradient(lighten(black, 85%) 0, lighten(black, 50%) 20%, lighten(black, 50%) 80%, lighten(black, 30%))
+  +box-shadow(0 0.5em 10px transparentize(black, 0.15))
   border-radius: 0.75em
   padding: 0.5em 1em
   > header, > footer
@@ -53,6 +53,9 @@
       +box-shadow(inset 0 0 2em black)
       font-family: $monospace
       color: tint(green, 55%)
-      text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.25)
+      text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.45)
       overflow-y: scroll
       -webkit-overflow-scrolling: touch
+      &::selection, & *::selection
+        background-color: tint(green, 55%)
+        color: lighten(black, 20%)
