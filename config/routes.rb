@@ -1,5 +1,5 @@
 Pynt::Application.routes.draw do
-  match 'terminal/games/:game' => 'terminal#index', as: :terminal
+  match 'terminal/games/:title' => 'terminal#index', as: :terminal
   # get "terminal/index"
   post "terminal/execute"
 
