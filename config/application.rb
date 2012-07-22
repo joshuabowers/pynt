@@ -70,7 +70,6 @@ module Pynt
     config.generators do |g|
       g.fixture = true
       g.fixture_replacement :fabrication
-      g.form_builder :simple_form
     end
   end
 end

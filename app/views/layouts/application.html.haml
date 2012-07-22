@@ -1,29 +1,39 @@
 !!!
 %html
   %head
-    %title P * Y * N * T
+    %title PYNT
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = favicon_link_tag "beer_mug_64.png", type: "image/png"
     = favicon_link_tag "beer_mug_144.png", rel: "apple-touch-icon", type: "image/png"
     = csrf_meta_tags
+    %meta{name: "context", content: controller.controller_name}
   %body
     #container
       %header
         %h1
           = image_tag "beer_mug_144.png"
           PYNT
-        .gamer-details 
-          Username
-          %nav
-            %ul
-              %li Gamerscore
-              %li Friends
-              %li Messages
+        .gamer-details
+          - if user_signed_in?
+            = link_to current_user.username, edit_user_registration_path
+            (#{link_to "Log Out", destroy_user_session_path})
+            %nav
+              %ul
+                %li Gamerscore
+                %li Friends
+                %li Messages
+          - else 
+            %nav
+              %ul
+                %li= link_to "Log In", new_user_session_path
+                %li= link_to "Sign Up", new_user_registration_path
       %nav
         %ul
           %li Things
           %li Go
           %li Here
-      #content
+      #content{class: controller.controller_name}
+        .notice= notice
+        .alert= alert
         = yield
