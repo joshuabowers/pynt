@@ -1,0 +1,7 @@
+=glowing-link($color: white)
+  color: shade($color, 10%)
+  text-decoration: none
+  +transition(all 1s ease)
+  &:hover
+    color: $color
+    text-shadow: 0 0 10px tint($color, 10%)

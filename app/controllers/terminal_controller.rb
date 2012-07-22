@@ -1,4 +1,6 @@
 class TerminalController < ApplicationController
+  before_filter :authenticate_user!
+  
   # Essentially, should do something like:
   # @game = Game.where(title: params['title'])
   # @current_state = @game.load_last_save_for(current_user)

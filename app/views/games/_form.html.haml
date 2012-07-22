@@ -1,0 +1,10 @@
+= simple_form_for(@game) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :description
+    = f.input :genre
+
+  .form-actions
+    = f.button :submit

@@ -1,4 +1,6 @@
 Pynt::Application.routes.draw do
+  resources :games
+
   devise_for :users
 
   match 'terminal/games/:title' => 'terminal#index', as: :terminal

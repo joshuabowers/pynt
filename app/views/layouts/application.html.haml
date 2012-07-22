@@ -13,7 +13,7 @@
       %header
         %h1
           = image_tag "beer_mug_144.png"
-          PYNT
+          = link_to "PYNT", root_path
         .gamer-details
           - if user_signed_in?
             = link_to current_user.username, edit_user_registration_path
@@ -30,9 +30,10 @@
                 %li= link_to "Sign Up", new_user_registration_path
       %nav
         %ul
-          %li Things
-          %li Go
-          %li Here
+          %li= link_to_section "Games", games_path
+          %li= link_to_section "Some", "#"
+          %li= link_to_section "Other", "#"
+          %li= link_to_section "Sections", "#"
       #content{class: controller.controller_name}
         .notice= notice
         .alert= alert
