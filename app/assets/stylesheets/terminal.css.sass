@@ -70,11 +70,15 @@
     #history, aside
       padding: 0.5em 1em
       border-radius: 0.75em
-      +radial-gradient(10% 10%, ellipse closest-corner, darken(white, 30%), lighten(black, 20%))
+      +radial-gradient(10% 10%, ellipse closest-corner, darken(white, 45%), lighten(black, 20%))
       +box-shadow(inset 0 0 2em black)
       font-family: $monospace
       color: tint(green, 55%)
-      text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.45)
+      // text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.45)
+      text-shadow: 0 0 15px darken(white, 20%)
+      &, & *
+        font-size: 17px
+        line-height: 20px
       &::selection, & *::selection
         background-color: tint(green, 55%)
         color: lighten(black, 20%)
