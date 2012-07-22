@@ -59,10 +59,10 @@
               font-weight: bold
       & > ul, & > div
         +box-flex(1)
-      #database, #inventory, #map
+      #database, #inventory, #location
         display: none
         &:target
-          display: inline-block
+          display: block
     #history
       +box-flex(1)
       margin-right: 1em
@@ -77,6 +77,6 @@
       &::selection, & *::selection
         background-color: tint(green, 55%)
         color: lighten(black, 20%)
-    #history, aside > ul
+    #history, aside > *:not(nav)
       overflow-y: scroll
       -webkit-overflow-scrolling: touch

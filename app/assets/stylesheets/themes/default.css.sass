@@ -62,7 +62,7 @@ html, body
           &:first-child
             border-left: none
   > nav
-    +linear-gradient(lighten(black, 75%) 0, lighten(black, 50%) 50%, shade(blue, 100%) 100%)
+    +linear-gradient(transparentize(lighten(black, 75%), 0.50) 0, transparentize(lighten(black, 50%), 0.50) 50%, transparentize(black, 0.50) 100%)
     +box-shadow(0 0.5em 10px hsla(0, 0%, 0%, 0.65))
     padding: 0.5em 5em
     color: white
