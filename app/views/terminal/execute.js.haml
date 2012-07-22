@@ -1,5 +1,6 @@
 var id = "h-#{DateTime.now.to_s(:number)}"
 $("#history").append("<p id='" + id + "'>#{@command_line}</p>");
+$("#database").append("<li>#{@command_line}</li>");
 $("#command_line").val("");
 var position = $("#" + id).position();
 $("#history").scrollTop(position.top);

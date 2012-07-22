@@ -32,21 +32,41 @@
     margin: 0.5em 0
     aside
       +box-flex
-      width: 20%
       +display-box
       +box-orient(vertical)
-      +box-align(stretch)
       +box-direction(normal)
+      width: 20%
       nav
+        padding-top: 0.5em
+        +box-flex
+        text-align: center
+        border-bottom: tint(green, 55%) 0.25em dashed
+        ul, li
+          margin: 0
+          padding: 0
+        ul
+          list-style: none
+        li
+          +inline-block
+          padding: 0.2em 0.5em
+          a
+            color: tint(green, 45%)
+            text-decoration: none
+            +transition(all 2s ease-out-back)
+            &.current
+              color: tint(green, 60%)
+              text-shadow: 0 0 3em transparentize(darken(white, 20%), 0.15)
+              font-weight: bold
+      & > ul, & > div
         +box-flex(1)
-        &#database
-          margin-bottom: 0.5em
-        &#inventory
-          margin-top: 0.5em
+      #database, #inventory, #map
+        display: none
+        &:target
+          display: inline-block
     #history
       +box-flex(1)
       margin-right: 1em
-    #history, aside nav
+    #history, aside
       padding: 0.5em 1em
       border-radius: 0.75em
       +radial-gradient(10% 10%, ellipse closest-corner, darken(white, 30%), lighten(black, 20%))
@@ -54,8 +74,9 @@
       font-family: $monospace
       color: tint(green, 55%)
       text-shadow: 0 0 1em transparentize(darken(white, 40%), 0.45)
-      overflow-y: scroll
-      -webkit-overflow-scrolling: touch
       &::selection, & *::selection
         background-color: tint(green, 55%)
         color: lighten(black, 20%)
+    #history, aside > ul
+      overflow-y: scroll
+      -webkit-overflow-scrolling: touch

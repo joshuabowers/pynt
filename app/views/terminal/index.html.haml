@@ -3,8 +3,17 @@
   #map
 #main
   %aside
-    %nav#database
-    %nav#inventory
+    %nav
+      %ul
+        - [:database, :inventory, :map].each do |link|
+          %li= link_to link.to_s.capitalize, "##{link}", id: "#{link}_tab"
+    %ul#database
+      %li Sample Database Entry!
+    %ul#inventory
+      %li One slightly abused and musty backpack
+      %li Death-Rä (tm)
+    #map
+      This is not the map you are looking for!
   #history
 %footer
   = render 'command_line'
