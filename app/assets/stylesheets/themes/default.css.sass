@@ -79,7 +79,7 @@ html, body
           &:first-child
             border-left: none
   > nav
-    +cylindrical-gradient(black)
+    +cylindrical-gradient(lighten(black, 20%))
     +box-shadow(0 0.5em 10px hsla(0, 0%, 0%, 0.65))
     padding: 0 5em
     color: white
@@ -101,7 +101,7 @@ html, body
         &:hover
           +cylindrical-gradient(green, 0)
         &.current
-          +cylindrical-gradient(blue)
+          +cylindrical-gradient(black, $invert: false)
       &:first-child a
         border-top-left-radius: 1em
         border-bottom-left-radius: 1em

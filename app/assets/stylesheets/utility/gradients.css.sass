@@ -1,2 +1,5 @@
-=cylindrical-gradient($color: gray, $transparency: 0.5)
-  +linear-gradient(transparentize(tint($color, 35%), $transparency) 0, transparentize(tint($color, 50%), $transparency) 50%, transparentize(shade($color, 15%), $transparency) 100%)
+=cylindrical-gradient($color: gray, $transparency: 0.5, $invert: false)
+  @if $invert == false
+    +linear-gradient(transparentize(tint($color, 35%), $transparency) 0, transparentize(tint($color, 50%), $transparency) 40%, transparentize(shade($color, 15%), $transparency) 100%)
+  @else
+    +linear-gradient(transparentize(shade($color, 5%), $transparency) 0, transparentize(tint($color, 50%), $transparency) 75%, transparentize(tint($color, 35%), $transparency) 100%)
