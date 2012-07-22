@@ -44,7 +44,8 @@ html, body
         &:hover
           +transform(rotate(15deg))
     .gamer-details
-      +box-flex(1)
+      +box-flex
+      width: 20em
       text-align: right
       +linear-gradient(tint(green, 20%), tint(green, 40%) 75%, shade(green, 40%))
       padding: 0.1em 0.5em
@@ -80,7 +81,7 @@ html, body
             border-left: none
   > nav
     +cylindrical-gradient(lighten(black, 20%))
-    +box-shadow(0 0.5em 10px hsla(0, 0%, 0%, 0.65))
+    +box-shadow(0 2em 4em hsla(0, 0%, 0%, 0.65))
     padding: 0 5em
     color: white
     ul, li
@@ -103,14 +104,13 @@ html, body
         &.current
           +cylindrical-gradient(black, $invert: false)
       &:first-child a
-        border-top-left-radius: 1em
-        border-bottom-left-radius: 1em
+        +border-left-radius(1em)
       &:last-child a
-        border-top-right-radius: 1em
-        border-bottom-right-radius: 1em
+        +border-right-radius(1em)
   #content
     +box-flex(1)
-    margin: 1em 5em
+    margin-left: 5em
+    margin-right: 5em
     +display-box
     +box-align(stretch)
     +box-orient(vertical)

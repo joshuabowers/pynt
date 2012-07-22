@@ -1,10 +1,10 @@
 class GamesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:index, :show]
   
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = Game.asc(:title).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

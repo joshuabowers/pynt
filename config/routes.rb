@@ -4,10 +4,9 @@ Pynt::Application.routes.draw do
   devise_for :users
 
   match 'terminal/games/:title' => 'terminal#index', as: :terminal
-  # get "terminal/index"
   post "terminal/execute"
   
-  root to: "terminal#index"
+  root to: "games#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
