@@ -43,4 +43,6 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+  
+  embeds_many :game_saves, class_name: "GameSave"
 end
