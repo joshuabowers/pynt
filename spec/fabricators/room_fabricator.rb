@@ -1,0 +1,2 @@
+Fabricator(:room) do
+end

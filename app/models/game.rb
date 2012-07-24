@@ -4,6 +4,7 @@ class Game
   field :parameterized_title, type: String
   field :description, type: String
   field :genre, type: String
+  embeds_many :rooms
   
   before_save :parameterize_title
   
@@ -18,10 +19,9 @@ class Game
   # Also, updates user's GameSave object.
   def execute(command_line, user)
     save = load_last_save_for(user)
-    event = Event.parse(command_line)
-    save.handle!(event)
+    command = Command.parse(command_line)
+    save.handle!(command)
   end
-  
 private
   def parameterize_title
     self.parameterized_title = self.title.parameterize

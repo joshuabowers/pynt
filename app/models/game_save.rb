@@ -5,8 +5,9 @@ class GameSave
   field :current_room_id, type: Moped::BSON::ObjectId
   embedded_in :user
   embeds_many :game_states do
-    def history
-      desc(:created_at)
+    def current_room_history
+      entry_state = where(moved_to_room_id: current_room.id).desc(:created_at).only(:created_at).first
+      where(:created_at >= entry_state.created_at).asc(:created_at)
     end
   end
   
@@ -15,7 +16,7 @@ class GameSave
   end
   
   def current_room
-    # @current_room ||= self.game.rooms.find(self.current_room_id)
+    @current_room ||= self.game.rooms.find(self.current_room_id)
   end
   
   def current_room=(room)

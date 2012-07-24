@@ -1,0 +1,2 @@
+Fabricator(:portal) do
+end

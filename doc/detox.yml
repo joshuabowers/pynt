@@ -1,0 +1,164 @@
+room:
+  name: Detox
+  portals:
+    -
+      name: door
+      destination: detention-block
+      events:
+        -
+          action: inspect
+          description:
+            "You remember that movie by Stanely Kubrick with the apes smashing
+            skulls open with bones and monotonous breathing? There were these
+            massive monoliths therein. This door is, most decidedly, almost
+            completely, but not quite, exactly not like that at all."
+          hint: Perhaps you should try touching the door...
+        -
+          action: touch
+          description:
+            "Think about the most anti-climatic thing you have ever witnessed.
+            Now imagine that times, I dunno, five. That's what the hallway bathed
+            in the dim glow of an emergency light looks like: a big disappointment."
+        -
+          action: use
+  scenery:
+    -
+      name: Sergeant Lampig
+      events:
+        -
+          action: inspect
+          description:
+            ...
+        -
+          action: touch
+          description:
+            ...
+    -
+      name: pool
+      events:
+        - 
+          action: inspect
+          description:
+            case:
+              -
+                when:
+                  -
+                    var: analyzed-pool
+                    is: true
+                description:
+                  entry: analyzed-pool
+              -
+                else:
+                  "An amorphous, chunky broth of vomit and piss about two meters in diameter
+                  lays still and, well, smelly, near the corpse of Lampig. The hue of the
+                  pool is rather intoxicatingly beautiful: a rather lovely shade of puke
+                  yellow with some mixtures of blood red swirling throughout; the chunks
+                  are, well, chunky. You cannot remember what you ate last night. Fish, maybe?"
+          hint:
+            case:
+              -
+                when:
+                  -
+                    var: mindnet
+                    is: false
+                description:
+                  "If you hand some fancy technical gadget, like they have on those
+                  silly Sci-Fi shows, you could probably determine what that pool
+                  is. Oh well; no tricoder for you! You could always try licking
+                  it, I guess..."
+              -
+                when:
+                  -
+                    var: analyzer
+                    is: true
+                description:
+                  "Its amazing the marvels of modern technology! You could probably
+                  determine the chemical content of the pool if you had an analysis
+                  plug-in..."
+              -
+                when:
+                  -
+                    var: analyzed-pool
+                    is: false
+                description:
+                  "You have an analysis plug-in for your MindNet; wonder what it might
+                  tell you?"
+        - 
+          action: touch
+          description:
+            "Eww! The pool is cold! You must have been lying if the, er, \"fruits\" of your,
+            er, \"labor\" for quite some time."
+        - 
+          action: lick
+          description:
+            "You're kidding, right? I mean, seriously: we're talking about some
+            grade-A projectile vomit mixed in with stale piss; I doubt fraternity
+            college students would ingest that shit if offered good money to do so.
+            What are you, some sort of masochist?"
+        -
+          action: analyze
+          requires: analyzer
+          description:
+            entry:
+              name: Analyzed Pool
+              info:
+                "You appear to have ate a considerable quantity of a chicken curry; that's
+                what those blobby chunks are. Although... one of them could be your gall
+                bladder. Odd... there does not appear to be any rice in the mixture.
+                You also seem to have chased the curry down with a rather prodigious amount
+                of both the green dragon and the green fairy. Why is the pool yellow, then?
+                Truly, your excretory system is a, er, \"marvel\" of epic proportions!
+                Hmm... that's curious: my analysis suggests this would make a potent explosive..."
+              hint:
+                case:
+                  -
+                    when:
+                      -
+                        var: sample-jar
+                        is: false
+                    description: If only you had some sort of container to grab a sample with...
+                  -
+                    when:
+                      -
+                        var: pukenade
+                        is: false
+                    description: Collecting a sample would be a good idea!
+        -
+          action: collect
+          requires: sample-jar
+  items:
+    -
+      name: Security Keycard
+      description:
+        entry:
+          name: "Security Keycard"
+          info:
+  description:
+    case:
+      -
+        when: first-enter
+        description:
+          "After a night of drunken debauchery, you wake in a cold, dark room, with
+          naught to be seen save a dim red glow emanating from what your throbbing
+          head registers as the crack beneath a [door]. A faintly sweet smell drifts
+          about the room, which you find oddly familiar; closer to your immediate
+          position, the all too familiar amalgamated stench of vomit and piss is,
+          besides the headache, your only clue that the last night was expensive."
+      -
+        when: 
+          -
+            var: main-power
+            is: on
+        description:
+          "Your eyes bulge in terror: while the lights are now on, it appears that
+          someone is very much at home. Or, at least, was at home. They seemed to
+          have left some pretty grisly handiwork behind, anyway: in the center of
+          the room, hanging from the roof by his own entrails are the remains of
+          the very dead [Sergeant Lampig]. You notice a vile [pool] of gelatinous 
+          yellow liquid with chunks in not far from the sergeant; it smells
+          suspiciously familiar..."
+      -
+        else:
+          "Your knees start to tremble and shake; the damp warmness betwixt your legs
+          is a shocking reminder that you hate the dark. The briefest of whimpers
+          escapes your normally stoic face. You, good son, are a feckless wimp."
