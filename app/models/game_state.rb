@@ -9,7 +9,11 @@ class GameState
   field :removed_item_ids, type: Array
   field :added_database_record_ids, type: Array
   field :updated_database_record_ids, type: Array
-  field :updated_variables, type: Hash # NOTE: Moped::BSON::ObjectId => new_value
+  field :updated_variables, type: Hash
   field :moved_to_room_id, type: Moped::BSON::ObjectId
   embeds_one :event, as: :interactive
+  
+  def moved_to_room?
+    self.moved_to_room_id.present?
+  end
 end

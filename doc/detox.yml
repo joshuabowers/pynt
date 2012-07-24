@@ -20,8 +20,11 @@ room:
             "Think about the most anti-climatic thing you have ever witnessed.
             Now imagine that times, I dunno, five. That's what the hallway bathed
             in the dim glow of an emergency light looks like: a big disappointment."
+          hint:
+            "Now that the door is open, perhaps you should use it..."
         -
           action: use
+          update: location
   scenery:
     -
       name: Sergeant Lampig
@@ -123,7 +126,19 @@ room:
           name: "Security Keycard"
           info:
   hint:
-    "When lost or otherwise stuck, it's always a good idea to inspect things around you!"
+    case:
+      - 
+        when: first-enter
+        description:
+          "When lost or otherwise stuck, it's always a good idea to inspect things around you!"
+      -
+        when:
+          detox-power: off
+        description:
+          "Damn, is it dark in here! If only there was some way to turn on the lights..."
+      -
+        else:
+          "That pool looks rather intoxicating..."
   description:
     case:
       -
@@ -137,7 +152,7 @@ room:
           besides the headache, your only clue that the last night was expensive."
       -
         when: 
-          main-power: on
+          detox-power: on
         description:
           "Your eyes bulge in terror: while the lights are now on, it appears that
           someone is very much at home. Or, at least, was at home. They seemed to

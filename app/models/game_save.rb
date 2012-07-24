@@ -12,7 +12,7 @@ class GameSave
   end
   
   def current_room
-    @current_room ||= self.game.rooms.find(self.current_room_id)
+    self.game.rooms.find(self.current_room_id)
   end
     
   def current_room_history
@@ -24,12 +24,12 @@ class GameSave
     self.current_room_id = room.id
     self.variables["#{room.parameterized_name}-times-entered"] ||= 0
     self.variables["#{room.parameterized_name}-times-entered"] += 1
-    self.game_states.build({
+    self.save!
+    self.game_states.create({
       description: room.description.to_s(self),
       hint: room.hint.try(:description).try(:to_s, self),
       moved_to_room_id: room.id
     })
-    self.save!
   end
   
   def all_comparisons_valid?(comparisons)
@@ -39,7 +39,7 @@ class GameSave
         variable = self.variables["#{current_room.parameterized_name}-times-entered"]
         value ? variable == 1 : variable > 1
       else
-        self.variables[key] == value
+        (self.variables[key] || false) == value
       end
     end
   end
@@ -48,16 +48,27 @@ class GameSave
   def handle!(command)
     referent = self.current_room.objects.where(name: command.referent).first
     event = referent.events.where(action: command.action).first
-    self.game_states.create({
-      command_line: command.to_s,
-      description: event.description.to_s(self),
-      hint: event.hint.try(:description).try(:to_s, self)
-    })
+    event.updated_variables.each do |key, value|
+      self.variables[key] = value
+    end
+    self.save!
+    if event.change_location
+      destination = self.game.rooms.where(parameterized_name: referent.destination_parameterized_name).first
+      self.enter_room!(destination)
+    else
+      self.game_states.create({
+        command_line: command.to_s,
+        description: event.description.try(:to_s, self),
+        hint: event.hint.try(:description).try(:to_s, self),
+        updated_variables: event.updated_variables
+      })
+    end
   rescue Exception => e
     self.game_states.build({
       id: Moped::BSON::ObjectId.new,
       command_line: command.to_s,
-      description: "Try as hard as you might, you simply cannot do that."
+      description: e.to_s + "\n" + e.backtrace.join("\n")
+      # description: "Try as hard as you might, you simply cannot do that."
     })
   end
 end

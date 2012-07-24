@@ -4,8 +4,8 @@ class Command
   field :referent, type: String
   
   def self.parse(command_line)
-    action, referent = command_line.split
-    Command.new(action: action, referent: referent)
+    action, *referent = command_line.split
+    Command.new(action: action, referent: referent.join(" "))
   end
   
   def to_s

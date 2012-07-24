@@ -14,16 +14,17 @@ class Room < GameObject
   before_save :parse_yaml, :parameterize_name
   
   def parse(hash)
+    self.objects.destroy_all
     super
     hash["portals"].each do |portal|
       self.objects.build({}, Portal).parse(portal)
-    end
+    end if hash["portals"]
     hash["scenery"].each do |object|
       self.objects.build.parse(object)
-    end
+    end if hash["scenery"]
     hash["items"].each do |item|
       self.objects.build({}, Item).parse(item)
-    end
+    end if hash["items"]
   end
 
 private

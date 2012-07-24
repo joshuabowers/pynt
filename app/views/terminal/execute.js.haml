@@ -1,5 +1,9 @@
 var id = "gs#{@current_state.id.to_s}";
-$("#history").append("#{escape_javascript(render(partial: 'game_state', object: @current_state))}");
+var description = "#{escape_javascript(render(partial: 'game_state', object: @current_state))}";
+- if @current_state.moved_to_room?
+  $("#history").html(description);
+- else
+  $("#history").append(description);
 $("#database").append("<li>#{@command_line}</li>");
 $("#command_line").val("");
 var position = $("#" + id).position();
