@@ -12,7 +12,8 @@ room:
             skulls open with bones and monotonous breathing? There were these
             massive monoliths therein. This door is, most decidedly, almost
             completely, but not quite, exactly not like that at all."
-          hint: Perhaps you should try touching the door...
+          hint: 
+            "Perhaps you should try touching the door..."
         -
           action: touch
           description:
@@ -121,6 +122,8 @@ room:
         entry:
           name: "Security Keycard"
           info:
+  hint:
+    "When lost or otherwise stuck, it's always a good idea to inspect things around you!"
   description:
     case:
       -

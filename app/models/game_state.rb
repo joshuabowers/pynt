@@ -4,6 +4,7 @@ class GameState
   embedded_in :game_save
   field :command_line, type: String
   field :description, type: String
+  field :hint, type: String
   field :added_item_ids, type: Array
   field :removed_item_ids, type: Array
   field :added_database_record_ids, type: Array

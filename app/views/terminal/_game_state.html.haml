@@ -1,3 +1,6 @@
 - if game_state.command_line
   %p.command-line= game_state.command_line
 %p.game-state{id: "gs#{game_state.id}"}= game_state.description
+- if game_state.hint
+  %p.hint
+    %em= game_state.hint

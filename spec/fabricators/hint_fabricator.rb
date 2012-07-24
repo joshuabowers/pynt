@@ -1,0 +1,2 @@
+Fabricator(:hint) do
+end

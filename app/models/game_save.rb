@@ -26,6 +26,7 @@ class GameSave
     self.variables["#{room.parameterized_name}-times-entered"] += 1
     self.game_states.build({
       description: room.description.to_s(self),
+      hint: room.hint.try(:description).try(:to_s, self),
       moved_to_room_id: room.id
     })
     self.save!
@@ -49,7 +50,8 @@ class GameSave
     event = referent.events.where(action: command.action).first
     self.game_states.create({
       command_line: command.to_s,
-      description: event.description.to_s(self)
+      description: event.description.to_s(self),
+      hint: event.hint.try(:description).try(:to_s, self)
     })
   rescue Exception => e
     self.game_states.build({
