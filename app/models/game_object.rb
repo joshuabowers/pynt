@@ -1,6 +1,7 @@
 class GameObject
   include Mongoid::Document
   field :name, type: String
+  # field :parameterized_name, type: String
   embeds_one :description, as: :descriptive
   embeds_many :events, as: :interactive
   embedded_in :container, polymorphic: true
@@ -14,4 +15,10 @@ class GameObject
       end
     end
   end
+  
+  # before_save :parameterize_name
+# private
+#   def parameterize_name
+#     self.parameterized_name = self.name.parameterize
+#   end
 end

@@ -15,5 +15,6 @@
     #location
       This is not the map you are looking for!
   #history
+    = render partial: 'game_state', collection: @game_save.current_room_history
 %footer
   = render 'command_line'

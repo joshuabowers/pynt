@@ -7,4 +7,8 @@ class Command
     action, referent = command_line.split
     Command.new(action: action, referent: referent)
   end
+  
+  def to_s
+    "#{action} #{referent}"
+  end
 end

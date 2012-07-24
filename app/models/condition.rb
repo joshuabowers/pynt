@@ -13,6 +13,6 @@ class Condition < Description
   end
   
   def satisfied?(game_save)
-    # Logic to determine whether something is satisfied...
+    game_save.all_comparisons_valid?(self.comparisons)
   end
 end

@@ -11,7 +11,7 @@ class Room < GameObject
   end
   embedded_in :game
   
-  before_save :parameterize_name, :parse_yaml
+  before_save :parse_yaml, :parameterize_name
   
   def parse(hash)
     super
