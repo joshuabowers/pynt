@@ -71,8 +71,8 @@ class GameSave
     self.game_states.build({
       id: Moped::BSON::ObjectId.new,
       command_line: command.to_s,
-      description: e.to_s + "\n" + e.backtrace.join("\n")
-      # description: "Try as hard as you might, you simply cannot do that."
+      # description: e.to_s + "\n" + e.backtrace.join("\n")
+      description: "Try as hard as you might, you simply cannot do that."
     })
   end
 end

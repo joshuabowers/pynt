@@ -79,17 +79,29 @@
       &, & *
         font-size: 17px
         line-height: 20px
-      p.command-line, p.hint
-        color: darken(tint(green, 55%), 20%)
-      span.portal
-        color: tint(yellow, 55%)
-      span.game_object
-        color: tint(red, 55%)
-      span.item
-        color: tint(blue, 55%)
       &::selection, & *::selection
         background-color: tint(green, 55%)
-        color: lighten(black, 20%)
+        color: lighten(black, 20%)      
+      p.command-line, p.hint
+        color: darken(tint(green, 55%), 20%)
+        &::selection
+          background-color: darken(tint(green, 55%), 20%)
+          color: lighten(black, 20%)
+      span.portal
+        color: tint(yellow, 55%)
+        &::selection
+          background-color: tint(yellow, 55%)
+          color: lighten(black, 20%)
+      span.game_object
+        color: tint(red, 55%)
+        &::selection
+          background-color: tint(red, 55%)
+          color: lighten(black, 20%)
+      span.item
+        color: tint(blue, 55%)
+        &::selection
+          background-color: tint(blue, 55%)
+          color: lighten(black, 20%)
     #history, aside > *:not(nav)
       overflow-y: scroll
       -webkit-overflow-scrolling: touch

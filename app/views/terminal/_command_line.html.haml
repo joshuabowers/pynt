@@ -2,6 +2,6 @@
   = form_tag(terminal_execute_path, remote: true) do
     = hidden_field_tag 'game_id', @game.id
     .field
-      = text_field_tag 'command_line', nil, placeholder: "$"
+      = text_field_tag 'command_line', nil, placeholder: "$", autofocus: true
     .actions
       = submit_tag 'Execute', name: nil
