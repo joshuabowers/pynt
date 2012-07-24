@@ -1,0 +1,2 @@
+Fabricator(:condition) do
+end

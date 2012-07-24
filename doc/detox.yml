@@ -42,9 +42,7 @@ room:
             case:
               -
                 when:
-                  -
-                    var: analyzed-pool
-                    is: true
+                  analyzed-pool: true
                 description:
                   entry: analyzed-pool
               -
@@ -58,9 +56,7 @@ room:
             case:
               -
                 when:
-                  -
-                    var: mindnet
-                    is: false
+                  mindnet: false
                 description:
                   "If you hand some fancy technical gadget, like they have on those
                   silly Sci-Fi shows, you could probably determine what that pool
@@ -68,18 +64,14 @@ room:
                   it, I guess..."
               -
                 when:
-                  -
-                    var: analyzer
-                    is: true
+                  analyzer: true
                 description:
                   "Its amazing the marvels of modern technology! You could probably
                   determine the chemical content of the pool if you had an analysis
                   plug-in..."
               -
                 when:
-                  -
-                    var: analyzed-pool
-                    is: false
+                  analyzed-pool: false
                 description:
                   "You have an analysis plug-in for your MindNet; wonder what it might
                   tell you?"
@@ -113,15 +105,11 @@ room:
                 case:
                   -
                     when:
-                      -
-                        var: sample-jar
-                        is: false
+                      sample-jar: false
                     description: If only you had some sort of container to grab a sample with...
                   -
                     when:
-                      -
-                        var: pukenade
-                        is: false
+                      pukenade: false
                     description: Collecting a sample would be a good idea!
         -
           action: collect
@@ -146,9 +134,7 @@ room:
           besides the headache, your only clue that the last night was expensive."
       -
         when: 
-          -
-            var: main-power
-            is: on
+          main-power: on
         description:
           "Your eyes bulge in terror: while the lights are now on, it appears that
           someone is very much at home. Or, at least, was at home. They seemed to
