@@ -31,11 +31,25 @@ room:
         -
           action: use
           description:
-            "You see the dim glow of more emergency lighting coming from
-            beneath the door to your erstwhile cell. You can probably see
-            things in there, now."
-          update:
-            detox-power: on
+            case:
+              -
+                when:
+                  detox-power: on
+                description:
+                  "You see the dim glow of more emergency lighting coming from
+                  beneath the door to your erstwhile cell."
+              -
+                else:
+                  "The lighting in the cell is no more. It has gone to meet its maker.
+                  It is pushing up the daises. It is an ex-lighting."
+          hint:
+            case:
+              -
+                when:
+                  detox-power: on
+                description:
+                  "You can probably see things in there, now."
+          toggle: detox-power
   description:
     "You find yourself in a short hallway. Even though it is rather dim, 
     the red glow of the emergency lighting is harsh in your still mildly

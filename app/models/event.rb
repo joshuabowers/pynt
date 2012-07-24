@@ -2,6 +2,7 @@ class Event
   include Mongoid::Document
   field :action, type: String
   field :updated_variables, type: Hash, default: {}
+  field :toggled_variables, type: Array, default: []
   field :change_location, type: Boolean, default: false
   embeds_one :description, as: :descriptive
   embeds_one :hint, as: :hintable
@@ -12,6 +13,14 @@ class Event
     self.description = Description.parse(hash["description"]) if hash["description"]
     if hash["hint"]
       self.build_hint.parse(hash["hint"])
+    end
+    if hash["toggle"]
+      case
+      when hash["toggle"].is_a?(String)
+        self.toggled_variables << hash["toggle"]
+      when hash["toggle"].is_a?(Array)
+        self.toggled_variables = hash["toggle"]
+      end
     end
     if hash["update"]
       case
