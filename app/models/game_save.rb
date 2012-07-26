@@ -6,13 +6,14 @@ class GameSave
   field :variables, type: Hash, default: {}
   embedded_in :user
   embeds_many :game_states, cascade_callbacks: true
+  embeds_many :visited_rooms
   
   def game
     @game ||= Game.find(self.game_id)
   end
   
   def current_room
-    self.game.rooms.find(self.current_room_id)
+    self.game.rooms.find(self.current_room_id) if self.current_room_id
   end
     
   def current_room_history
@@ -20,7 +21,8 @@ class GameSave
     game_states.where(:created_at.gte => entry_state.created_at).asc(:created_at)
   end
   
-  def enter_room!(room)
+  def enter_room!(room, portal = nil)
+    update_visited_rooms(current_room, room, portal)
     self.current_room_id = room.id
     self.variables["#{room.parameterized_name}-times-entered"] ||= 0
     self.variables["#{room.parameterized_name}-times-entered"] += 1
@@ -58,7 +60,7 @@ class GameSave
     self.save!
     if event.change_location
       destination = self.game.rooms.where(parameterized_name: referent.destination_parameterized_name).first
-      self.enter_room!(destination)
+      self.enter_room!(destination, referent)
     else
       self.game_states.create({
         command_line: command.to_s,
@@ -76,27 +78,38 @@ class GameSave
     })
   end
   
-  # NOTE: Need to come up with a way of keeping track of:
-  # * which rooms the user has been in,
-  # * which doors the user has inspected / used
-  # * which doors are currently locked
   def generate_map(options = {})
     options.reverse_merge! format: :svg
     file_name = map_file_name(options[:format])
     GraphViz.new("world-map", type: :digraph, use: :neato) do |g|
       g["overlap"] = false
       g["splines"] = true
+      g["sep"] = 1
       g["bgcolor"] = "transparent"
       g.node["margin"] = "0.1"
       g.node["style"] = "rounded"
-      current_room = g.add_nodes(self.current_room.parameterized_name, label: self.current_room.name, shape: "box")
-      you_are_here = g.add_nodes("you_are_here", label: "You Are Here", shape: "plaintext")
-      here_there_be = g.add_nodes("here_there_be", label: "Here There be Dragons")
-      g.add_edges(you_are_here, current_room)
+      g.node["shape"] = "box"
+      g.edge["arrowhead"] = "vee"
+      self.visited_rooms.each do |visited_room|
+        from = g.get_node(visited_room.from.parameterized_name) || g.add_nodes(visited_room.from.parameterized_name, label: visited_room.from.name) if visited_room.from
+        to = g.get_node(visited_room.to.parameterized_name) || g.add_nodes(visited_room.to.parameterized_name, label: visited_room.to.name) if visited_room.to
+        g.add_edges(from, to, label: visited_room.via.name) if from && visited_room.via
+      end
+      if self.current_room
+        current_room = g.get_node(self.current_room.parameterized_name)
+        you_are_here = g.add_nodes("you_are_here", label: "You Are Here", shape: "plaintext")
+        g.add_edges(you_are_here, current_room)
+      end
     end.output(file_name)
     File.read(file_name[options[:format]]).html_safe
   end
 private
+  def update_visited_rooms(from, to, via)
+    unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id), via_id: via.try(:id)).count > 0
+      self.visited_rooms.build(from: from, to: to, via: via)
+    end
+  end
+
   def map_file_name(format)
     directory = "tmp/images/users/#{user.username}/maps/"
     FileUtils.mkdir_p(directory)
