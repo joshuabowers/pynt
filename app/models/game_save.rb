@@ -83,9 +83,16 @@ class GameSave
   def generate_map(options = {})
     options.reverse_merge! format: :svg
     file_name = map_file_name(options[:format])
-    GraphViz.new("world-map", type: :digraph) do |g|
+    GraphViz.new("world-map", type: :digraph, use: :neato) do |g|
+      g["overlap"] = false
+      g["splines"] = true
       g["bgcolor"] = "transparent"
+      g.node["margin"] = "0.1"
+      g.node["style"] = "rounded"
       current_room = g.add_nodes(self.current_room.parameterized_name, label: self.current_room.name, shape: "box")
+      you_are_here = g.add_nodes("you_are_here", label: "You Are Here", shape: "plaintext")
+      here_there_be = g.add_nodes("here_there_be", label: "Here There be Dragons")
+      g.add_edges(you_are_here, current_room)
     end.output(file_name)
     File.read(file_name[options[:format]]).html_safe
   end

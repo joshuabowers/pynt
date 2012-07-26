@@ -76,7 +76,7 @@
       font-family: $monospace
       color: tint(green, 55%)
       text-shadow: 0 0 15px darken(white, 20%)
-      &, & *
+      &, & p, & ul
         font-size: 17px
         line-height: 20px
       &::selection, & *::selection
@@ -106,20 +106,30 @@
       +display-box
       +box-orient(vertical)
       +box-direction(normal)
+      padding-top: 1em
       #history
         +box-flex(1)
       #location
         +box-flex
-        height: 20em
         text-align: center
-        vertical-align: middle
-        svg
-          overflow: scroll
-          -webkit-overflow-scrolling: touch
-        text
-          fill: tint(green, 55%)
-        polygon
-          stroke: tint(green, 55%)
+        max-height: 10em
+        overflow: scroll
+        -webkit-overflow-scrolling: touch
+        .node
+          text
+            fill: tint(green, 55%)
+            font-size: 11px
+            font-family: $monospace
+          polygon, ellipse, polyline, path
+            stroke: tint(green, 55%)
+        .edge
+          text
+            fill: tint(green, 55%)
+            font-size: 11px
+            font-family: $monospace
+          polygon
+            fill: tint(red, 60%)
+            stroke: tint(red, 55%)
     #history, aside > *:not(nav)
       overflow-y: scroll
       -webkit-overflow-scrolling: touch
