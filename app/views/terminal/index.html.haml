@@ -5,16 +5,17 @@
   %aside
     %nav
       %ul
-        - [:database, :inventory, :location].each do |link|
+        - [:database, :inventory].each do |link|
           %li= link_to link.to_s.titleize, "##{link}", id: "#{link}_tab"
     %ul#database
       %li Sample Database Entry!
     %ul#inventory
       %li One slightly abused and musty backpack
       %li Death-Rä (tm)
+  #main-screen
     #location
-      This is not the map you are looking for!
-  #history
-    = render partial: 'game_state', collection: @game_save.current_room_history
+      = @game_save.generate_map
+    #history
+      = render partial: 'game_state', collection: @game_save.current_room_history
 %footer
   = render 'command_line'

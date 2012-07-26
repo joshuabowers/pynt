@@ -75,4 +75,24 @@ class GameSave
       description: "Try as hard as you might, you simply cannot do that."
     })
   end
+  
+  # NOTE: Need to come up with a way of keeping track of:
+  # * which rooms the user has been in,
+  # * which doors the user has inspected / used
+  # * which doors are currently locked
+  def generate_map(options = {})
+    options.reverse_merge! format: :svg
+    file_name = map_file_name(options[:format])
+    GraphViz.new("world-map", type: :digraph) do |g|
+      g["bgcolor"] = "transparent"
+      current_room = g.add_nodes(self.current_room.parameterized_name, label: self.current_room.name, shape: "box")
+    end.output(file_name)
+    File.read(file_name[options[:format]]).html_safe
+  end
+private
+  def map_file_name(format)
+    directory = "tmp/images/users/#{user.username}/maps/"
+    FileUtils.mkdir_p(directory)
+    { format => "#{directory}#{game.parameterized_title}-world-map.#{format}" }
+  end
 end

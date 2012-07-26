@@ -4,6 +4,7 @@ var description = "#{escape_javascript(render(partial: 'game_state', object: @cu
   $("#history").html(description);
 - else
   $("#history").append(description);
+$("#location").html("#{escape_javascript(@current_state.game_save.generate_map)}");
 $("#database").append("<li>#{@command_line}</li>");
 $("#command_line").val("");
 var position = $("#" + id).position();

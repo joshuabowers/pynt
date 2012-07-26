@@ -64,10 +64,10 @@
         display: none
         &:target
           display: block
-    #history
+    #main-screen
       +box-flex(1)
       margin-right: 1em
-    #history, aside
+    #main-screen, aside
       padding: 0.5em 1em
       border-radius: 0.75em
       // +radial-gradient(10% 10%, ellipse closest-corner, darken(white, 45%), lighten(black, 20%))
@@ -102,6 +102,24 @@
         &::selection
           background-color: tint(blue, 55%)
           color: lighten(black, 20%)
+    #main-screen
+      +display-box
+      +box-orient(vertical)
+      +box-direction(normal)
+      #history
+        +box-flex(1)
+      #location
+        +box-flex
+        height: 20em
+        text-align: center
+        vertical-align: middle
+        svg
+          overflow: scroll
+          -webkit-overflow-scrolling: touch
+        text
+          fill: tint(green, 55%)
+        polygon
+          stroke: tint(green, 55%)
     #history, aside > *:not(nav)
       overflow-y: scroll
       -webkit-overflow-scrolling: touch

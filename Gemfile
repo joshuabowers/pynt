@@ -13,6 +13,8 @@ gem 'cancan', '~> 1.6.8'
 
 gem 'simple_form', '~> 2.0.2'
 
+gem 'ruby-graphviz', '~> 1.0.8'
+
 gem 'kaminari'
 
 gem 'progressbar'
@@ -38,16 +40,16 @@ gem 'kramdown'
 
 group :test, :development do
   gem 'rspec-rails', "~> 2.11.0"
-  gem 'capybara'
+  # gem 'capybara'
   gem 'fabrication'
   gem 'database_cleaner'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
   gem 'guard-rspec'
 end
 
-group :test do
-  gem 'cucumber-rails'
-end
+# group :test do
+#   gem 'cucumber-rails'
+# end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
