@@ -9,7 +9,9 @@
 %p
   %b Genre:
   = @game.genre
-
+  
+= link_to 'Play', terminal_path(@game.parameterized_title)
+\|
 = link_to 'Edit', edit_game_path(@game)
 \|
 = link_to 'Back', games_path

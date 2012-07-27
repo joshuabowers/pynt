@@ -1,0 +1,7 @@
+= simple_form_for([@game, @room]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :yaml, as: :text, label: false
+  .form-actions
+    = f.button :submit

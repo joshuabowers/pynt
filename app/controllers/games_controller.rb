@@ -1,5 +1,7 @@
 class GamesController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
+  load_and_authorize_resource :game
+  skip_authorize_resource only: [:index, :show]
   
   # GET /games
   # GET /games.json

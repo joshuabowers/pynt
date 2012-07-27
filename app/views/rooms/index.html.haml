@@ -1,0 +1,19 @@
+%h1 Listing rooms
+
+%table
+  %tr
+    %th
+    %th
+    %th
+    %th
+
+  - @game.rooms.each do |room|
+    %tr
+      %td= room.name
+      %td= link_to 'Show', [@game, room]
+      %td= link_to 'Edit', edit_game_room_path(@game, room)
+      %td= link_to 'Destroy', [@game, room], :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Room', new_game_room_path(@game)

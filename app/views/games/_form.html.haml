@@ -5,6 +5,7 @@
     = f.input :title
     = f.input :description, as: :text
     = f.input :genre
+    = f.input :starting_room, collection: @game.rooms, prompt: "Select the room the game starts in"
 
   .form-actions
     = f.button :submit

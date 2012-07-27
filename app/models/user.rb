@@ -45,4 +45,5 @@ class User
   # field :authentication_token, :type => String
   
   embeds_many :game_saves, class_name: "GameSave"
+  has_many :authored_games, class_name: "Game", inverse_of: "author"
 end

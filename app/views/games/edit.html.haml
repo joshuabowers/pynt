@@ -1,6 +1,14 @@
-%h1 Editing game
-
-= render 'form'
+%header
+  %h1 Editing game
+#main
+  %aside
+    %header
+      %h2 Rooms
+    %nav
+      %ul
+        - @game.rooms.each do |room|
+          = link_to room.name, edit_game_room_path(@game, room)
+  = render 'form'
 
 = link_to 'Show', @game
 \|

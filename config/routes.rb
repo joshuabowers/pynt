@@ -1,5 +1,7 @@
 Pynt::Application.routes.draw do
-  resources :games
+  resources :games do
+    resources :rooms
+  end
 
   devise_for :users
 

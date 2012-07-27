@@ -6,11 +6,12 @@ class Game
   field :genre, type: String
   field :starting_room_id, type: Moped::BSON::ObjectId
   embeds_many :rooms
+  belongs_to :author, class_name: "User", inverse_of: "authored_games"
   
   before_save :parameterize_title
   
   def starting_room
-    self.rooms.find(self.starting_room_id)
+    self.rooms.find(self.starting_room_id) || self.rooms.first
   end
   
   def starting_room=(room)
