@@ -112,24 +112,23 @@
       #location
         +box-flex
         text-align: center
-        max-height: 10em
+        max-height: 50%
         overflow: scroll
         -webkit-overflow-scrolling: touch
-        .node
+        .node, .edge
           text
             fill: tint(green, 55%)
             font-size: 11px
-            font-family: $monospace
+            font-family: $monospace          
+        .node
           polygon, ellipse, polyline, path
             stroke: tint(green, 55%)
         .edge
-          text
-            fill: tint(green, 55%)
-            font-size: 11px
-            font-family: $monospace
           polygon, path
-            // fill: tint(yellow, 75%)
             stroke: tint(yellow, 55%)
+        #e_you_are_here
+          polygon, path
+            stroke: tint(red, 55%)
     #history, aside > *:not(nav)
       overflow-y: scroll
       -webkit-overflow-scrolling: touch

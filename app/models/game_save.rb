@@ -90,15 +90,16 @@ class GameSave
       g.node["style"] = "rounded"
       g.node["shape"] = "box"
       g.edge["arrowhead"] = "vee"
+      find_or_create_node = lambda {|room| g.get_node(room.parameterized_name) || g.add_nodes(room.parameterized_name, label: room.name) if room}
       self.visited_rooms.each do |visited_room|
-        from = g.get_node(visited_room.from.parameterized_name) || g.add_nodes(visited_room.from.parameterized_name, label: visited_room.from.name) if visited_room.from
-        to = g.get_node(visited_room.to.parameterized_name) || g.add_nodes(visited_room.to.parameterized_name, label: visited_room.to.name) if visited_room.to
+        from = find_or_create_node.call(visited_room.from)
+        to = find_or_create_node.call(visited_room.to)
         g.add_edges(from, to, label: visited_room.via.name) if from && visited_room.via
       end
       if self.current_room
         current_room = g.get_node(self.current_room.parameterized_name)
         you_are_here = g.add_nodes("you_are_here", label: "You Are Here", shape: "plaintext")
-        g.add_edges(you_are_here, current_room)
+        g.add_edges(you_are_here, current_room, id: "e_you_are_here")
       end
     end.output(file_name)
     File.read(file_name[options[:format]]).html_safe
