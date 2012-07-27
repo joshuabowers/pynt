@@ -1,36 +1,16 @@
 %header
   %h1 Listing Games
+  %aside
+    %nav
+      = link_to '+', new_game_path, title: "New game"
 #main
   %aside
   .items
     - @games.each do |game|
       .game
-        .cover= link_to image_tag('beer_mug_144.png'), terminal_path(title: game.parameterized_title)
+        -# # .cover= link_to image_tag('beer_mug_144.png'), terminal_path(title: game.parameterized_title)
+        .cover= link_to image_tag('beer_mug_144.png'), game
         %h2= game.title
 %footer
   = paginate @games
   = page_entries_info(@games).html_safe
-
--# %h1 Listing games
--# 
--# %table
--#   %tr
--#     %th Title
--#     %th Description
--#     %th Genre
--#     %th
--#     %th
--#     %th
--# 
--#   - @games.each do |game|
--#     %tr
--#       %td= game.title
--#       %td= game.description
--#       %td= game.genre
--#       %td= link_to 'Show', game
--#       %td= link_to 'Edit', edit_game_path(game)
--#       %td= link_to 'Destroy', game, :confirm => 'Are you sure?', :method => :delete
--# 
--# %br
--# 
--# = link_to 'New Game', new_game_path

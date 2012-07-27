@@ -7,7 +7,23 @@
   +border-bottom-radius(2em)
   header
     +box-flex
+    +display-box
+    +box-orient(horizontal)
+    +box-direction(normal)
     padding: 0.1em 1em
+    h1, aside
+      +box-flex(1)
+    aside
+      text-align: right
+      padding-top: 0.75em
+      a
+        text-decoration: none
+        font-size: 30pt
+        font-weight: bolder
+        color: green
+        +transition(all 1s ease)
+        &:hover
+          text-shadow: 0.1em 0.1em 20px black, 0 0 10px white
   #main
     +box-flex(1)
     +display-box
