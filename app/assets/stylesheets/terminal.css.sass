@@ -18,9 +18,20 @@
     +box-align(stretch)
     .field
       +box-flex(1)
-      padding-right: 0.25em
+      position: relative
+      margin-right: 1em
       input
-        width: 100%
+        position: absolute
+        left: 0
+        right: 0
+        background-color: lighten(black, 20%)
+        color: tint(green, 55%)
+        border: 0
+        +border-radius(1em)
+        padding-left: 1em
+        padding-right: 1em
+        +placeholder
+          color: darken(tint(green, 55%), 20%)
     .actions
       +box-flex
       padding-left: 0.25em

@@ -11,7 +11,7 @@ class Game
   before_save :parameterize_title
   
   def starting_room
-    self.rooms.find(self.starting_room_id) || self.rooms.first
+    self.starting_room_id.present? ? self.rooms.find(self.starting_room_id) : self.rooms.first
   end
   
   def starting_room=(room)
@@ -31,6 +31,10 @@ class Game
     save = load_last_save_for(user)
     command = Command.parse(command_line)
     save.handle!(command)
+  end
+  
+  def generate_map
+    nil
   end
 private
   def parameterize_title

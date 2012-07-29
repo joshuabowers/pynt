@@ -1,15 +1,16 @@
 %header
   %h1 Editing game
 #main
-  %aside
-    %header
-      %h2 Rooms
-    %nav
-      %ul
-        - @game.rooms.each do |room|
-          = link_to room.name, edit_game_room_path(@game, room)
+  %aside.edit-game
+    #rooms
+      %header
+        %h2 Rooms
+      %nav
+        %ul
+          - @game.rooms.asc(:name).each do |room|
+            = link_to room.name, edit_game_room_path(@game, room)
+    #world-map
+      %header
+        %h2 World Map
+      = @game.generate_map
   = render 'form'
-
-= link_to 'Show', @game
-\|
-= link_to 'Back', games_path

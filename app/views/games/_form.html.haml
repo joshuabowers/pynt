@@ -5,7 +5,11 @@
     = f.input :title
     = f.input :description, as: :text
     = f.input :genre
-    = f.input :starting_room, collection: @game.rooms, prompt: "Select the room the game starts in"
+    - if @game.persisted?
+      = f.input :starting_room_id, collection: @game.rooms.asc(:name), prompt: "Select the room the game starts in"
 
-  .form-actions
-    = f.button :submit
+  %ul.form-actions
+    - if @game.persisted?
+      %li= link_to 'Show', @game
+    %li= link_to 'Back', games_path
+    %li= f.button :submit

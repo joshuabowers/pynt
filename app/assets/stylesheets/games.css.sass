@@ -32,6 +32,45 @@
     aside
       +box-flex
       width: 20em
+      &.edit-game
+        +box-flex(1)
+        +box-shadow(inset 5px 0 15px 10px transparentize(gray, 0.5))
+        +display-box
+        +box-orient(vertical)
+        +box-direction(normal)
+        #rooms
+          +box-flex
+        #world-map
+          +box-flex(1)
+          overflow: scroll
+          -webkit-overflow-scrolling: touch
+    form
+      +box-flex
+      +display-box
+      +box-orient(vertical)
+      +box-direction(normal)
+      padding: 0.5em 1em
+      .form-inputs
+        +box-flex(1)
+        overflow-y: scroll
+        -webkit-overflow-scrolling: touch
+      .form-actions
+        +box-flex
+        text-align: right
+        list-style-type: none
+        &, & li
+          margin: 0
+          padding: 0
+        li
+          +inline-block
+      label
+        width: 7em
+        text-align: right
+        font-weight: bolder
+        +inline-block
+        margin-right: 1em
+      #{$all-text-inputs}, textarea
+        width: 40em
     .items
       +box-flex(1)
       +box-shadow(inset -5px 0 15px 10px transparentize(gray, 0.5))
