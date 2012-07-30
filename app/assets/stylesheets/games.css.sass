@@ -40,6 +40,25 @@
         +box-direction(normal)
         #rooms
           +box-flex
+          nav
+            padding-left: 1em
+          ul
+            list-style-type: none
+            &, & li
+              margin: 0
+              padding: 0
+            li
+              +inline-block
+          a
+            text-decoration: none
+            +border-radius(1em)
+            padding: 0.2em 1em
+            color: white
+            +transition(all 1s ease)
+            background-color: gray
+            &:hover
+              background-color: green
+              +box-shadow(0 0 15px green)
         #world-map
           +box-flex(1)
           overflow: scroll

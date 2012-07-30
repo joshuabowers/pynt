@@ -2,7 +2,40 @@
   margin-bottom: 2em
   padding-bottom: 2em
   +display-box
+  +box-orient(vertical)
   +linear-gradient(transparentize(tint(wheat, 85%), 0.65), transparentize(tint(wheat, 85%), 0.35) 95%, shade(wheat, 55%))
   +box-shadow(0 2em 4em black)
   +border-bottom-radius(2em)
-  
+  header
+    +box-flex
+    padding: 0.1em 1em
+  form
+    +box-flex(1)
+    +display-box
+    +box-orient(vertical)
+    .form-inputs
+      +box-flex(1)
+      +display-box
+      +box-orient(vertical)
+      .input
+        +box-flex(1)
+        +display-box
+        .CodeMirror
+          +box-flex(1)
+          +display-box
+          .CodeMirror-scroll
+            +box-flex(1)
+            height: auto
+            margin-right: 3px
+            -webkit-overflow-scrolling: touch
+    .form-actions
+      +box-flex
+      text-align: right
+      padding: 0.3em 0.5em
+      ul
+        list-style-type: none
+        &, & li
+          margin: 0
+          padding: 0
+        li
+          +inline-block

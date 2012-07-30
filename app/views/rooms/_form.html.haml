@@ -4,4 +4,9 @@
   .form-inputs
     = f.input :yaml, as: :text, label: false
   .form-actions
-    = f.button :submit
+    %nav
+      %ul
+        -# - if @room.persisted?
+        -#   %li= link_to 'Show', [@game, @room]
+        %li= link_to 'Back', edit_game_path(@game)
+        %li= f.button :submit

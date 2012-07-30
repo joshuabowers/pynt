@@ -39,7 +39,7 @@ class RoomsController < ApplicationController
   def create
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to edit_game_path(@game), notice: 'Room was successfully created.' }
         format.json { render json: @room, status: :created, location: @room }
       else
         format.html { render action: "new" }
@@ -53,7 +53,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update_attributes(params[:room])
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
+        format.html { redirect_to edit_game_path(@game), notice: 'Room was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -12,4 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require codemirror
+//= require codemirror/utils/multiplex
+//= require codemirror/modes/yaml
+//= require codemirror/modes/markdown
 //= require_tree .

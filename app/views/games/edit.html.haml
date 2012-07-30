@@ -8,7 +8,7 @@
       %nav
         %ul
           - @game.rooms.asc(:name).each do |room|
-            = link_to room.name, edit_game_room_path(@game, room)
+            %li= link_to room.name, edit_game_room_path(@game, room)
     #world-map
       %header
         %h2 World Map
