@@ -23,7 +23,7 @@ room:
           description: >
             From your current vantage point, you cannot see much in the security station;
             however, what you can see seems rather ramshackle. What the hell happened around
-            here, anyway? HabSecurity may be rather porcine, at times, but they are nothing
+            here, anyway? HabSec may be rather porcine, at times, but they are nothing
             if not fastidious when it comes to keeping their stations tidy.
         - action: use
           update: location

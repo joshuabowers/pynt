@@ -9,6 +9,7 @@
         %ul
           - @game.rooms.asc(:name).each do |room|
             %li= link_to room.name, edit_game_room_path(@game, room)
+          %li= link_to '+', new_game_room_path(@game), title: "New Room"
     #world-map
       %header
         %h2 World Map

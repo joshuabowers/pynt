@@ -1,0 +1,38 @@
+---
+room:
+  name: Security Station
+  portals:
+  - name: hallway
+    destination: detention-block
+    events:
+    - action: use
+      update: location
+  - name: glass doors
+    destination: arcade-level-5
+    events:
+    - action: inspect
+      description: >
+        Many of the public spaces in the Hab sport intricately etched glass surfaces: these
+        particular doors feature the following inscription: <HabSec - A-L5<. While some of
+        the etchings use more traditional methods, many of the newer sections of the Hab were
+        produced through ProgMatt.
+    - action: use
+      requires: security-card
+      hint:
+        case:
+        - when:
+            security-card: false
+          description: >
+            The door doesn't seem to be responsive to any of your machinations; it's
+            probably keyed to a HabSec officer.
+      update: location
+  description: >
+    This room is better illuminated than the [hallway], in no small part thanks to light
+    streaming in from the [glass doors] leading to the market arcade.
+    
+    You find the security station in utter shambles: desks askew (with a few overturned), 
+    chairs flung haphazardly; the accumulated junk of several overworked HabSec Officers, 
+    normally held in a state of suspended chaos in cubicles, now littering the floor in no
+    discernable order. The room appears to have been struck by a very powerful, very localized
+    meterological event. A musty smell permeates the air; inhaling through your mouth, the
+    tangy residue of some unknown substance taints your already befouled tongue.

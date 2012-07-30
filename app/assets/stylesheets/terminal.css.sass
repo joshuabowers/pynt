@@ -19,7 +19,6 @@
     .field
       +box-flex(1)
       position: relative
-      // margin-right: 1em
       input
         position: absolute
         left: 0
@@ -97,6 +96,13 @@
         color: darken(tint(green, 55%), 20%)
         &::selection
           background-color: darken(tint(green, 55%), 20%)
+          color: lighten(black, 20%)
+      span.mirrored
+        +inline-block
+        +transform(scale(-1, 1))
+        color: lighten(tint(green, 55%), 10%)
+        &::selection
+          background-color: lighten(tint(green, 55%), 10%)
           color: lighten(black, 20%)
       span.portal
         color: tint(yellow, 55%)
