@@ -82,11 +82,11 @@ class GameSave
     options.reverse_merge! format: :svg
     file_name = map_file_name(options[:format])
     GraphViz.new("world-map", type: :digraph, use: :neato) do |g|
-      g["overlap"] = false
+      g["overlap"] = "scale"
       g["splines"] = true
-      g["sep"] = 1
+      g["sep"] = 0.5
       g["bgcolor"] = "transparent"
-      g.node["margin"] = "0.1"
+      g.node["margin"] = "0.2, 0.055"
       g.node["style"] = "rounded"
       g.node["shape"] = "box"
       g.edge["arrowhead"] = "vee"
@@ -94,7 +94,7 @@ class GameSave
       self.visited_rooms.each do |visited_room|
         from = find_or_create_node.call(visited_room.from)
         to = find_or_create_node.call(visited_room.to)
-        g.add_edges(from, to, label: visited_room.via.name) if from && visited_room.via
+        g.add_edges(from, to) if from && visited_room.via
       end
       if self.current_room
         current_room = g.get_node(self.current_room.parameterized_name)
