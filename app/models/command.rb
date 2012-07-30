@@ -3,9 +3,9 @@ class Command
   field :action, type: String
   field :referent, type: String
   
-  def self.parse(command_line)
+  def self.parse(command_line, room)
     action, *referent = command_line.split
-    Command.new(action: action, referent: referent.join(" "))
+    Command.new(action: room.valid_event_actions[action.downcase], referent: referent.join(" "))
   end
   
   def to_s

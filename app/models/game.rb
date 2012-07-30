@@ -18,19 +18,13 @@ class Game
     self.starting_room_id = room.id
   end
   
-  # Should return a GameSave object, essentially the one that user has.
-  # NOTE: Will create a new GameSave, should the user not already have one.
   def load_last_save_for(user)
     user.game_saves.where(game_id: self.id).desc(:updated_at).first || new_save_game_for(user)
   end
   
-  # Parses command_line into an Event object. Uses this to alter user's GameSave
-  # Should return a GameState object, representing the change in state that command_line causes.
-  # Also, updates user's GameSave object.
   def execute(command_line, user)
     save = load_last_save_for(user)
-    command = Command.parse(command_line)
-    save.handle!(command)
+    save.handle!(command_line)
   end
   
   def generate_map

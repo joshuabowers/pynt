@@ -1,5 +1,8 @@
+require 'abbrev'
+
 class Room < GameObject
   field :parameterized_name, type: String
+  field :valid_event_actions, type: Hash, default: {}
   field :yaml, type: String, default: -> { self.class.default_yaml }
   embeds_many :objects, class_name: "GameObject", as: :container do
     def portals
@@ -11,8 +14,8 @@ class Room < GameObject
   end
   embedded_in :game
   
-  before_save :parse_yaml, :parameterize_name
-  
+  before_save :parse_yaml, :parameterize_name, :abbreviate_event_actions
+    
   def self.default_yaml
     {
       "room" => {
@@ -64,5 +67,10 @@ private
       r = YAML.load(self.yaml)
       self.parse(r["room"])
     end
+  end
+  
+  def abbreviate_event_actions
+    self.valid_event_actions = 
+      Abbrev::abbrev((objects | [self]).map {|o| o.events.map(&:action)}.flatten.uniq.map(&:downcase))
   end
 end

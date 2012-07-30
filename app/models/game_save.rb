@@ -47,8 +47,9 @@ class GameSave
   end
   
   # NOTE: Updates self based off of what event does, returning a new GameState
-  def handle!(command)
-    referent = self.current_room.objects.where(name: command.referent).first
+  def handle!(command_line)
+    command = Command.parse(command_line, current_room)
+    referent = self.current_room.objects.where(name: /#{command.referent}/i).first
     event = referent.events.where(action: command.action).first
     raise "Condition not satisfied" unless referent.satisfied?(self) && event.satisfied?(self)
     updated_variables = {}
