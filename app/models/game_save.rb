@@ -50,6 +50,7 @@ class GameSave
   def handle!(command)
     referent = self.current_room.objects.where(name: command.referent).first
     event = referent.events.where(action: command.action).first
+    raise "Condition not satisfied" unless referent.satisfied?(self) && event.satisfied?(self)
     updated_variables = {}
     event.toggled_variables.each do |variable|
       self.variables[variable] = !self.variables[variable]

@@ -1,0 +1,2 @@
+Fabricator(:requirement) do
+end

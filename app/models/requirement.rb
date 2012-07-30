@@ -1,18 +1,18 @@
-class Condition < Description
+class Requirement
+  include Mongoid::Document
   field :comparisons, type: Hash, default: {}
-  embedded_in :conditional
+  embedded_in :contingent, polymorphic: true
   
   def parse(hash)
-    super(hash["description"] || hash["else"])
     self.comparisons = 
-      case hash["when"]
+      case hash
       when String
-        {hash["when"] => true}
+        {hash => true}
       when Hash
-        hash["when"]
+        hash
       else
         {}
-      end 
+      end
   end
   
   def satisfied?(game_save)
