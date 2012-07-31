@@ -21,8 +21,8 @@ class GameSave
     game_states.where(:created_at.gte => entry_state.created_at).asc(:created_at)
   end
   
-  def enter_room!(room, portal = nil)
-    update_visited_rooms(current_room, room, portal)
+  def enter_room!(room)
+    update_visited_rooms(current_room, room)
     self.current_room_id = room.id
     self.variables["#{room.parameterized_name}-times-entered"] ||= 0
     self.variables["#{room.parameterized_name}-times-entered"] += 1
@@ -62,7 +62,7 @@ class GameSave
     self.save!
     if event.change_location
       destination = self.game.rooms.where(parameterized_name: referent.destination_parameterized_name).first
-      self.enter_room!(destination, referent)
+      self.enter_room!(destination)
     else
       self.game_states.create({
         command_line: command.to_s,
@@ -96,7 +96,7 @@ class GameSave
       self.visited_rooms.each do |visited_room|
         from = find_or_create_node.call(visited_room.from)
         to = find_or_create_node.call(visited_room.to)
-        g.add_edges(from, to) if from && visited_room.via
+        g.add_edges(from, to) if from
       end
       if self.current_room
         current_room = g.get_node(self.current_room.parameterized_name)
@@ -107,9 +107,9 @@ class GameSave
     File.read(file_name[options[:format]]).html_safe
   end
 private
-  def update_visited_rooms(from, to, via)
-    unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id), via_id: via.try(:id)).count > 0
-      self.visited_rooms.build(from: from, to: to, via: via)
+  def update_visited_rooms(from, to)
+    unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id)).count > 0
+      self.visited_rooms.build(from: from, to: to)
     end
   end
 

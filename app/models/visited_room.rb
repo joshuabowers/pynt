@@ -2,7 +2,6 @@ class VisitedRoom
   include Mongoid::Document
   field :from_id, type: Moped::BSON::ObjectId
   field :to_id, type: Moped::BSON::ObjectId
-  field :via_id, type: Moped::BSON::ObjectId
   embedded_in :game_save
   
   def from
@@ -14,7 +13,7 @@ class VisitedRoom
   end
   
   def via
-    from.objects.portals.find(via_id) if via_id
+    from.objects.portals.where(destination_parameterized_name: to.parameterized_name).first if from_id && to_id
   end
   
   def from=(room)
@@ -23,9 +22,5 @@ class VisitedRoom
   
   def to=(room)
     self.to_id = room.id if room
-  end
-  
-  def via=(portal)
-    self.via_id = portal.id if portal
   end
 end
