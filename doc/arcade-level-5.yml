@@ -1,0 +1,14 @@
+---
+room:
+  name: "Arcade: Level-5"
+  portals:
+  - name: HabSec doors
+    destination: security-station
+    events:
+    - action: use
+      update: location
+  scenery: []
+  items: []
+  hint: ''
+  description: >
+    You find yourself on the fifth level of the Arcade, the Hab's multi-level shopping district.

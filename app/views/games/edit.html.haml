@@ -1,3 +1,4 @@
+- metadata world_map_path: world_map_game_path(@game, format: :json)
 %header
   %h1 Editing game
 #main
@@ -13,5 +14,5 @@
     #world-map
       %header
         %h2 World Map
-      = @game.generate_map
+      .data= @game.generate_map
   = render 'form'

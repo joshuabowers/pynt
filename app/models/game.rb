@@ -28,7 +28,8 @@ class Game
   end
   
   def generate_map(options = {})
-    options.reverse_merge! format: :svg
+    options.reverse_merge! format: :svg, starting_room: starting_room_id
+    options[:starting_room] = Moped::BSON::ObjectId.from_string(options[:starting_room]) unless options[:starting_room].is_a? Moped::BSON::ObjectId
     graph = {overlap: "scale", splines: true, sep: 0.5, bgcolor: "transparent"}
     node = {margin: "0.2, 0.055", style: "rounded", shape: "box"}
     edge = {arrowhead: "vee"}
@@ -38,7 +39,7 @@ class Game
       edge.each {|key, value| g.edge[key.to_s] = value}
       rooms.each do |room|
         node = g.add_nodes(room.parameterized_name, label: room.name)
-        node["peripheries"] = 2 if room.id == starting_room_id
+        node["peripheries"] = 2 if room.id == options[:starting_room]
       end
       rooms.each do |room|
         from = g.get_node(room.parameterized_name)

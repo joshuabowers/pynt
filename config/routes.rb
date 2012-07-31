@@ -1,5 +1,6 @@
 Pynt::Application.routes.draw do
   resources :games do
+    post :world_map, on: :member
     resources :rooms
   end
 

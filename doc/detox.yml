@@ -29,7 +29,13 @@ room:
     events:
     - action: inspect
       description: >
-        ...
+        If it weren't for the fact that Lampig is, very much so, dead, you would
+        be rather much in awe of the bemusedly grisly fashion of his demise. Lampig's
+        chest appears to have been cut open --- or perhaps something burst out of it.
+        Whichever the case, he looks as flayed as a frog in a classic biology disection
+        lab. His ribcage appears to be bent outward. Lampig's intestines were wrapped
+        around his neck before being welded to the ceiling with ProgMatt. You can see
+        his [security keycard] just barely poking out from behind the gore.
     - action: touch
       description: >
         ...
@@ -103,7 +109,7 @@ room:
     - action: collect
       requires: sample-jar
   items:
-  - name: Security Keycard
+  - name: security keycard
     description:
       entry:
         name: "Security Keycard"

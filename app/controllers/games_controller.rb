@@ -6,7 +6,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.asc(:title).page(params[:page])
+    @games = @games.asc(:title).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +17,6 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
-    @game = Game.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @game }
@@ -28,8 +26,6 @@ class GamesController < ApplicationController
   # GET /games/new
   # GET /games/new.json
   def new
-    @game = Game.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @game }
@@ -38,14 +34,11 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
-    @game = Game.find(params[:id])
   end
 
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(params[:game])
-
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }
@@ -60,8 +53,6 @@ class GamesController < ApplicationController
   # PUT /games/1
   # PUT /games/1.json
   def update
-    @game = Game.find(params[:id])
-
     respond_to do |format|
       if @game.update_attributes(params[:game])
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
@@ -76,12 +67,18 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
-    @game = Game.find(params[:id])
     @game.destroy
 
     respond_to do |format|
       format.html { redirect_to games_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def world_map
+    respond_to do |format|
+      format.html { render inline: @game.generate_map(starting_room: params[:starting_room]) }
+      format.json { render json: {world_map: @game.generate_map(starting_room: params[:starting_room])}.to_json }
     end
   end
 end

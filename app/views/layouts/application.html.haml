@@ -7,7 +7,8 @@
     = favicon_link_tag "beer_mug_64.png", type: "image/png"
     = favicon_link_tag "beer_mug_144.png", rel: "apple-touch-icon", type: "image/png"
     = csrf_meta_tags
-    %meta{name: "context", content: controller.controller_name}
+    = tag :meta, name: "context", content: controller.controller_name
+    = yield :page_metadata
   %body
     #container
       %header

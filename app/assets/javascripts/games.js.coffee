@@ -4,4 +4,7 @@
 
 $ ->
   if $("meta[name='context']").attr("content") == "games"
-    foo = null
+    world_map_path = $("meta[name='world_map_path']").attr("content")
+    $("#game_starting_room_id").change ->
+      $.post world_map_path, {starting_room: $(this).val()}, (data) ->
+        $("#world-map .data").html data['world_map']
