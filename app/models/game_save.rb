@@ -82,16 +82,13 @@ class GameSave
   
   def generate_map(options = {})
     options.reverse_merge! format: :svg
-    file_name = map_file_name(options[:format])
+    graph = {overlap: "scale", splines: true, sep: 0.5, bgcolor: "transparent"}
+    node = {margin: "0.2, 0.055", style: "rounded", shape: "box"}
+    edge = {arrowhead: "vee"}
     GraphViz.new("world-map", type: :digraph, use: :neato) do |g|
-      g["overlap"] = "scale"
-      g["splines"] = true
-      g["sep"] = 0.5
-      g["bgcolor"] = "transparent"
-      g.node["margin"] = "0.2, 0.055"
-      g.node["style"] = "rounded"
-      g.node["shape"] = "box"
-      g.edge["arrowhead"] = "vee"
+      graph.each {|key, value| g[key.to_s] = value}
+      node.each {|key, value| g.node[key.to_s] = value}
+      edge.each {|key, value| g.edge[key.to_s] = value}
       find_or_create_node = lambda {|room| g.get_node(room.parameterized_name) || g.add_nodes(room.parameterized_name, label: room.name) if room}
       self.visited_rooms.each do |visited_room|
         from = find_or_create_node.call(visited_room.from)
@@ -103,19 +100,12 @@ class GameSave
         you_are_here = g.add_nodes("you_are_here", label: "You Are Here", shape: "plaintext")
         g.add_edges(you_are_here, current_room, id: "e_you_are_here")
       end
-    end.output(file_name)
-    File.read(file_name[options[:format]]).html_safe
+    end.output(svg: String).html_safe
   end
 private
   def update_visited_rooms(from, to)
     unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id)).count > 0
       self.visited_rooms.build(from: from, to: to)
     end
-  end
-
-  def map_file_name(format)
-    directory = "tmp/images/users/#{user.username}/maps/"
-    FileUtils.mkdir_p(directory)
-    { format => "#{directory}#{game.parameterized_title}-world-map.#{format}" }
   end
 end

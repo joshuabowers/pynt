@@ -27,8 +27,27 @@ class Game
     save.handle!(command_line)
   end
   
-  def generate_map
-    nil
+  def generate_map(options = {})
+    options.reverse_merge! format: :svg
+    graph = {overlap: "scale", splines: true, sep: 0.5, bgcolor: "transparent"}
+    node = {margin: "0.2, 0.055", style: "rounded", shape: "box"}
+    edge = {arrowhead: "vee"}
+    GraphViz.new("world-map", type: :digraph, use: :neato) do |g|
+      graph.each {|key, value| g[key.to_s] = value}
+      node.each {|key, value| g.node[key.to_s] = value}
+      edge.each {|key, value| g.edge[key.to_s] = value}
+      rooms.each do |room|
+        node = g.add_nodes(room.parameterized_name, label: room.name)
+        node["peripheries"] = 2 if room.id == starting_room_id
+      end
+      rooms.each do |room|
+        from = g.get_node(room.parameterized_name)
+        room.objects.portals.each do |portal|
+          to = g.get_node(portal.destination_parameterized_name)
+          g.add_edges(from, to)
+        end
+      end
+    end.output(svg: String).html_safe
   end
 private
   def parameterize_title
