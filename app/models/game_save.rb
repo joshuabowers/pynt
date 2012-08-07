@@ -23,22 +23,6 @@ class GameSave
     game_states.where(:created_at.gte => entry_state.created_at).asc(:created_at)
   end
   
-  def enter_room(room)
-    update_visited_rooms(current_room, room)
-    self.current_room_id = room.id
-    self.variables["#{room.parameterized_name}-times-entered"] ||= 0
-    self.variables["#{room.parameterized_name}-times-entered"] += 1
-    self.game_states.build(
-      description: room.description.to_s(self),
-      hint: room.hint.try(:description).try(:to_s, self),
-      moved_to_room_id: room.id
-    )
-  end
-  
-  def enter_room!(room)
-    enter_room(room).tap { save! }
-  end
-  
   def all_comparisons_valid?(comparisons)
     comparisons.all? do |key, value| 
       case key
@@ -51,38 +35,14 @@ class GameSave
     end
   end
   
-  # NOTE: Updates self based off of what event does, returning a new GameState
   def handle!(command_line)
-    command = Command.parse(command_line, current_room)
-    referent = self.current_room.objects.where(name: /#{command.referent}/i).first
-    event = referent.events.where(action: command.action).first
-    raise "Condition not satisfied" unless referent.satisfied?(self) && event.satisfied?(self)
-    updated_variables = {}
-    event.toggled_variables.each do |variable|
-      self.variables[variable] = !self.variables[variable]
+    game_states.build.tap {|game_state| game_state.handle(command_line)}.tap { save }
+  end
+  
+  def update_visited_rooms(from, to)
+    unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id)).count > 0
+      self.visited_rooms.build(from: from, to: to)
     end
-    event.updated_variables.each do |key, value|
-      self.variables[key] = value
-    end
-    self.save!
-    if event.change_location
-      destination = self.game.rooms.where(parameterized_name: referent.destination_parameterized_name).first
-      self.enter_room!(destination)
-    else
-      self.game_states.create({
-        command_line: command.to_s,
-        description: event.description.try(:to_s, self),
-        hint: event.hint.try(:description).try(:to_s, self),
-        updated_variables: Hash[*event.updated_variables.keys.map {|key| [key, self.variables[key]]}.flatten] 
-      })
-    end
-  rescue Exception => e
-    self.game_states.build({
-      id: Moped::BSON::ObjectId.new,
-      command_line: command.to_s,
-      # description: e.to_s + "\n" + e.backtrace.join("\n")
-      description: "Try as hard as you might, you simply cannot do that."
-    })
   end
   
   def generate_map(options = {})
@@ -109,12 +69,6 @@ class GameSave
   end
 private
   def setup_initial_save_state
-    enter_room(game.starting_room)
-  end
-
-  def update_visited_rooms(from, to)
-    unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id)).count > 0
-      self.visited_rooms.build(from: from, to: to)
-    end
+    game_states.build.start_game(game.starting_room)
   end
 end

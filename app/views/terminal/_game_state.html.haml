@@ -1,5 +1,5 @@
-- if game_state.command_line
-  %p.command-line= game_state.command_line
+- if game_state.command
+  %p.command-line= game_state.command.to_s
 %p.game-state{id: "gs#{game_state.id}"}= mark_up_description(game_state)
 - if game_state.hint
   %p.hint
