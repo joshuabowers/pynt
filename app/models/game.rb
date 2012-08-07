@@ -55,11 +55,7 @@ private
     self.parameterized_title = self.title.parameterize
   end
   
-  # May need to do some extra processing of the new save files, here.
   def new_save_game_for(user)
-    game_save = user.game_saves.create(game_id: self.id)
-    game_save.enter_room!(self.starting_room)
-    game_save.user.save!
-    game_save
+    user.game_saves.create(game_id: self.id)
   end
 end

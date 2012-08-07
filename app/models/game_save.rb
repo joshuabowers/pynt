@@ -8,6 +8,8 @@ class GameSave
   embeds_many :game_states, cascade_callbacks: true
   embeds_many :visited_rooms
   
+  after_build :setup_initial_save_state
+  
   def game
     @game ||= Game.find(self.game_id)
   end
@@ -21,17 +23,20 @@ class GameSave
     game_states.where(:created_at.gte => entry_state.created_at).asc(:created_at)
   end
   
-  def enter_room!(room)
+  def enter_room(room)
     update_visited_rooms(current_room, room)
     self.current_room_id = room.id
     self.variables["#{room.parameterized_name}-times-entered"] ||= 0
     self.variables["#{room.parameterized_name}-times-entered"] += 1
-    self.save!
-    self.game_states.create({
+    self.game_states.build(
       description: room.description.to_s(self),
       hint: room.hint.try(:description).try(:to_s, self),
       moved_to_room_id: room.id
-    })
+    )
+  end
+  
+  def enter_room!(room)
+    enter_room(room).tap { save! }
   end
   
   def all_comparisons_valid?(comparisons)
@@ -103,6 +108,10 @@ class GameSave
     end.output(svg: String).html_safe
   end
 private
+  def setup_initial_save_state
+    enter_room(game.starting_room)
+  end
+
   def update_visited_rooms(from, to)
     unless visited_rooms.where(from_id: from.try(:id), to_id: to.try(:id)).count > 0
       self.visited_rooms.build(from: from, to: to)
