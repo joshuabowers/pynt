@@ -14,5 +14,14 @@ class TerminalController < ApplicationController
     @game = Game.find(params['game_id'])
     @command_line = params['command_line']
     @current_state = @game.execute(@command_line, current_user)
+    data = {
+      id: "gs#{@current_state.id.to_s}",
+      moved_to_room: @current_state.moved_to_room?,
+      description: render_to_string(partial: 'game_state', layout: false, object: @current_state),
+      world_map: @current_state.moved_to_room? ? @current_state.game_save.generate_map : nil
+    }
+    respond_to do |format|
+      format.json { render json: data.to_json }
+    end
   end
 end

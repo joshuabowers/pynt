@@ -32,7 +32,7 @@ class Command
   end
   
   def to_s
-    "#{action} #{referent.name}"
+    "#{action} #{referent.try(:name) || object_name}"
   end
 private
   def current_command?

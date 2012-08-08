@@ -35,6 +35,7 @@ end
 
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'underscore-rails'
 gem 'codemirror-rails'
 
 gem 'kramdown'

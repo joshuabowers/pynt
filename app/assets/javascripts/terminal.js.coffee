@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 $ ->
   if $("meta[name='context']").attr("content") == "terminal"
     default_tab = "#database"
@@ -14,3 +10,14 @@ $ ->
     # Invokes above handler, to ensure that the tab is selected on page load.
     window.location.hash = default_tab unless window.location.hash
     $("#{window.location.hash || default_tab}_tab").click()
+    
+    # A handler for updating the UI based off of how the server responded to the executed command.
+    $("#terminal-command-line form").on "ajax:success", (event, data, status, xhr) ->
+      if data['moved_to_room']
+        $("#history").html(data['description'])
+      else
+        $("#history").append(data['description'])
+      $("#location").html(data['world_map']) if data['moved_to_room']
+      $("#command_line").val("")
+      position = $("##{data['id']}").position()
+      $("#history").scrollTop(position.top)
