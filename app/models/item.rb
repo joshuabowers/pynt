@@ -1,2 +1,2 @@
-class Item < GameObject
+class Item < Widget
 end

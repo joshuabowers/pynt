@@ -1,4 +1,4 @@
-class Portal < GameObject
+class Portal < Widget
   field :destination_parameterized_name, type: String
   field :destination_id, type: String
   

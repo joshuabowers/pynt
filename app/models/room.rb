@@ -1,17 +1,9 @@
 require 'abbrev'
 
-class Room < GameObject
+class Room < Widget
   field :parameterized_name, type: String
   field :valid_event_actions, type: Hash, default: {}
   field :yaml, type: String, default: -> { self.class.default_yaml }
-  embeds_many :objects, class_name: "GameObject", as: :container do
-    def portals
-      where(_type: "Portal")
-    end
-    def items
-      where(_type: "Item")
-    end
-  end
   embedded_in :game
   
   before_save :parse_yaml, :parameterize_name, :abbreviate_event_actions
@@ -35,21 +27,6 @@ class Room < GameObject
       }
     }.stringify_keys.to_yaml
   end
-  
-  def parse(hash)
-    self.objects.destroy_all
-    super
-    hash["portals"].each do |portal|
-      self.objects.build({}, Portal).parse(portal)
-    end if hash["portals"]
-    hash["scenery"].each do |object|
-      self.objects.build.parse(object)
-    end if hash["scenery"]
-    hash["items"].each do |item|
-      self.objects.build({}, Item).parse(item)
-    end if hash["items"]
-  end
-
 private
   def parameterize_name
     self.parameterized_name = self.name.parameterize
@@ -65,6 +42,6 @@ private
   
   def abbreviate_event_actions
     self.valid_event_actions = 
-      Abbrev::abbrev((objects | [self]).map {|o| o.events.map(&:action)}.flatten.uniq.map(&:downcase))
+      Abbrev::abbrev((child_widgets | [self]).map {|o| o.events.map(&:action)}.flatten.uniq.map(&:downcase))
   end
 end

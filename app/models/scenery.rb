@@ -1,0 +1,2 @@
+class Scenery < Widget
+end

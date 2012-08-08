@@ -1,0 +1,2 @@
+Fabricator(:scenery) do
+end

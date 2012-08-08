@@ -43,7 +43,7 @@ class Game
       end
       rooms.each do |room|
         from = g.get_node(room.parameterized_name)
-        room.objects.portals.each do |portal|
+        room.portals.each do |portal|
           to = g.get_node(portal.destination_parameterized_name)
           g.add_edges(from, to)
         end
