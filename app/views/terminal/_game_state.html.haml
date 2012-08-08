@@ -1,4 +1,4 @@
-- if game_state.command
+- if game_state.command && !game_state.moved_to_room?
   %p.command-line= game_state.command.to_s
 %p.game-state{id: "gs#{game_state.id}"}= mark_up_description(game_state)
 - if game_state.hint
