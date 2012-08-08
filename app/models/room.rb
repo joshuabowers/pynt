@@ -1,12 +1,12 @@
 require 'abbrev'
 
 class Room < Widget
-  field :parameterized_name, type: String
   field :valid_event_actions, type: Hash, default: {}
   field :yaml, type: String, default: -> { self.class.default_yaml }
   embedded_in :game
   
-  before_save :parse_yaml, :parameterize_name, :abbreviate_event_actions
+  before_validation :parse_yaml
+  before_save :abbreviate_event_actions
     
   def self.default_yaml
     {
@@ -28,10 +28,6 @@ class Room < Widget
     }.stringify_keys.to_yaml
   end
 private
-  def parameterize_name
-    self.parameterized_name = self.name.parameterize
-  end
-  
   def parse_yaml
     if self.yaml
       self.yaml = self.yaml.gsub(/\t/, '  ')

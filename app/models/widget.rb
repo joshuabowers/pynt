@@ -1,17 +1,20 @@
 class Widget
   include Mongoid::Document
   field :name, type: String
+  field :parameterized_name, type: String
   embeds_one :description, as: :descriptive
   embeds_many :events, as: :interactive
   embeds_one :hint, as: :hintable
   embeds_one :requirement, as: :contingent
-  recursively_embeds_many
+  recursively_embeds_many cascade_callbacks: true
   
   scope :portals, where(_type: "Portal")
   scope :scenery, where(_type: "Scenery")
   scope :items, where(_type: "Item")
   
   delegate :portals, :scenery, :items, to: :child_widgets
+  
+  before_save :parameterize_name
 
   def parse(hash)
     self.name = hash["name"] if hash["name"]
@@ -26,6 +29,10 @@ class Widget
     requirement ? requirement.satisfied?(game_save) : true
   end
 private
+  def parameterize_name
+    self.parameterized_name = self.name.parameterize
+  end
+
   def parse_children(hash)
     self.child_widgets.destroy_all
     [Portal, Scenery, Item].each do |type|
