@@ -20,22 +20,16 @@ class Room < GameObject
     {
       "room" => {
         "name" => "",
-        "portals" => [
-          {
-            "name" => "",
-            "destination" => "",
-            "events" => [
-              {
-                "action" => "",
-                "description" => ""
-              }
-              ]
-          }
-          ],
-        "scenery" => [
-          ],
-        "items" => [
-          ],
+        "portals" => [{
+          "name" => "",
+          "destination" => "",
+          "events" => [{
+            "action" => "",
+            "description" => ""
+            }]
+          }],
+        "scenery" => [],
+        "items" => [],
         "hint" => "",
         "description" => ""
       }
