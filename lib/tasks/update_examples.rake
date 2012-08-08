@@ -3,7 +3,7 @@ namespace :pynt do
   task update_examples: :environment do
     game = Game.first
     game.rooms.each do |room|
-      File.write("doc/#{room.parameterized_name}.yml", room.yaml)
+      File.write("doc/examples/rooms/#{room.parameterized_name}.yml", room.yaml)
     end
   end
 end
