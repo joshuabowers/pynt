@@ -39,6 +39,12 @@ room:
     - action: touch
       description: >
         ...
+    items:
+    - name: security keycard
+      description:
+        entry:
+          name: "Security Keycard"
+          info:
   - name: pool
     requires: detox-power
     events:
@@ -108,12 +114,6 @@ room:
               description: Collecting a sample would be a good idea!
     - action: collect
       requires: sample-jar
-  items:
-  - name: security keycard
-    description:
-      entry:
-        name: "Security Keycard"
-        info:
   hint:
     case:
     - when: first-enter

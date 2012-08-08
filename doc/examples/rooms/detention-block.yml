@@ -17,6 +17,37 @@ room:
         while padding his super-secret offshore account.
     - action: use
       update: location
+    scenery:
+    - name: light switch
+      events:
+      - action: inspect
+        description:
+          case:
+          - when:
+              detox-power: off
+            description: >
+              Seems to currently be switched to the "off"-position.
+          - else: >
+              Somebody flipped it to the "on"-position.
+      - action: use
+        description:
+          case:
+          - when:
+              detox-power: on
+            description: >
+              You see the dim glow of more emergency lighting coming from
+              beneath the door to your erstwhile cell.
+          - else: >
+              The lighting in the cell is no more. It has gone to meet its maker.
+              It is pushing up the daises. It has joined the choir invisible.
+              It is an ex-lighting.
+        hint:
+          case:
+          - when:
+              detox-power: on
+            description: >
+              You can probably see things in there, now.
+        toggle: detox-power
   - name: opening
     destination: security-station
     events:
@@ -28,37 +59,6 @@ room:
         if not fastidious when it comes to keeping their stations tidy.
     - action: use
       update: location
-  scenery:
-  - name: light switch
-    events:
-    - action: inspect
-      description:
-        case:
-        - when:
-            detox-power: off
-          description: >
-            Seems to currently be switched to the "off"-position.
-        - else: >
-            Somebody flipped it to the "on"-position.
-    - action: use
-      description:
-        case:
-        - when:
-            detox-power: on
-          description: >
-            You see the dim glow of more emergency lighting coming from
-            beneath the door to your erstwhile cell.
-        - else: >
-            The lighting in the cell is no more. It has gone to meet its maker.
-            It is pushing up the daises. It has joined the choir invisible.
-            It is an ex-lighting.
-      hint:
-        case:
-        - when:
-            detox-power: on
-          description: >
-            You can probably see things in there, now.
-      toggle: detox-power
   description: >
     You find yourself in a short hallway. Even though it is rather dim, 
     the red glow of the emergency lighting is harsh in your still mildly
