@@ -5,6 +5,10 @@ room:
   - name: hallway
     destination: detention-block
     events:
+    - action: inspect
+      description: >
+        The hallway appears to only be lit by a single, red emergency light. From where you
+        are currently standing, you can see a few nondescript doors lining the hallway's walls.
     - action: use
       update: location
   - name: glass doors
