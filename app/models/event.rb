@@ -26,4 +26,12 @@ class Event
   def satisfied?(game_save)
     requirement ? requirement.satisfied?(game_save) : true
   end
+  
+  def full_description(game_save)
+    description.try(:to_s, game_save)
+  end
+  
+  def full_hint(game_save)
+    hint.try(:description).try(:to_s, game_save)
+  end
 end

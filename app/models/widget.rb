@@ -28,6 +28,26 @@ class Widget
   def satisfied?(game_save)
     requirement ? requirement.satisfied?(game_save) : true
   end
+  
+  def recursive_where(*options)
+    child_widgets.where(*options).to_a + child_widgets.map {|widget| widget.recursive_where(*options)}.flatten
+  end
+  
+  def full_description(game_save)
+    if satisfied?(game_save)
+      ([description.try(:to_s, game_save)] + child_widgets.map {|widget| widget.full_description(game_save)}).join(" ")
+    end
+  end
+  
+  def full_hint(game_save)
+    if satisfied?(game_save)
+      ([hint.try(:description).try(:to_s, game_save)] + child_widgets.map {|widget| widget.full_hint(game_save)}).join("\n")
+    end
+  end
+
+  def recursive_events
+    events + child_widgets.map(&:recursive_events).flatten
+  end
 private
   def parameterize_name
     self.parameterized_name = self.name.parameterize

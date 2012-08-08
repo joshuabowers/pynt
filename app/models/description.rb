@@ -17,7 +17,7 @@ class Description
   end
   
   def parse(hash)
-    self.value = hash if hash.is_a?(String)
+    self.value = hash.strip if hash.is_a?(String)
   end
   
   def to_s(game_save)

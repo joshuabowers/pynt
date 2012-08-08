@@ -26,6 +26,10 @@ room:
   scenery:
   - name: Sergeant Lampig
     requires: detox-power
+    description: >
+      They seemed to have left some pretty grisly handiwork behind, anyway: 
+      in the center of the room, hanging from the roof by his own entrails
+      are the remains of the very dead [Sergeant Lampig].
     events:
     - action: inspect
       description: >
@@ -45,8 +49,13 @@ room:
         entry:
           name: "Security Keycard"
           info:
+      events:
+      - action: take
   - name: pool
     requires: detox-power
+    description: >
+      You notice a vile [pool] of gelatinous yellow liquid with chunks in not
+      far from the sergeant; it smells suspiciously familiar...
     events:
     - action: inspect
       description:
@@ -139,12 +148,7 @@ room:
         detox-power: on
       description: >
         Your eyes bulge in terror: while the lights are now on, it appears that
-        someone is very much at home. Or, at least, was at home. They seemed to
-        have left some pretty grisly handiwork behind, anyway: in the center of
-        the room, hanging from the roof by his own entrails are the remains of
-        the very dead [Sergeant Lampig]. You notice a vile [pool] of gelatinous 
-        yellow liquid with chunks in not far from the sergeant; it smells
-        suspiciously familiar...
+        someone is very much at home. Or, at least, was at home.
     - else: >
         Your knees start to tremble and shake; the damp warmness betwixt your legs
         is a shocking reminder that you hate the dark. The briefest of whimpers

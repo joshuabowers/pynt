@@ -68,8 +68,8 @@ private
   
   def output
     self.write_attributes(
-      description: valid? ? source.description.try(:to_s, game_save) : I18n.t("game_state.error"),
-      hint: valid? ? source.hint.try(:description).try(:to_s, game_save) : nil
+      description: valid? ? source.full_description(game_save) : I18n.t("game_state.error"),
+      hint: valid? ? source.full_hint(game_save) : nil
     )
   end
 end

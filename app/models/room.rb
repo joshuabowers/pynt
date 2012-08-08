@@ -38,6 +38,6 @@ private
   
   def abbreviate_event_actions
     self.valid_event_actions = 
-      Abbrev::abbrev((child_widgets | [self]).map {|o| o.events.map(&:action)}.flatten.uniq.map(&:downcase))
+      Abbrev::abbrev(recursive_events.map(&:action).uniq.map(&:downcase))
   end
 end

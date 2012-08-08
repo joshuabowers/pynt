@@ -4,6 +4,8 @@ room:
   portals:
   - name: door
     destination: detox
+    description: >
+      Behind you is the [door] to the detox cell you had spent the night in.
     events:
     - action: inspect
       description: >
@@ -19,6 +21,8 @@ room:
       update: location
     scenery:
     - name: light switch
+      description: >
+        You blearily make out that there is a [light switch] next to the door.
       events:
       - action: inspect
         description:
@@ -50,6 +54,9 @@ room:
         toggle: detox-power
   - name: opening
     destination: security-station
+    description: >
+      At the far end of the hall from where you are standing, you can see 
+      the [opening] to the security station.
     events:
     - action: inspect
       description: >
@@ -62,7 +69,4 @@ room:
   description: >
     You find yourself in a short hallway. Even though it is rather dim, 
     the red glow of the emergency lighting is harsh in your still mildly
-    inebriated state. Behind you is the [door] to the detox cell you had
-    spent the night in. You blearily make out that there is a
-    [light switch] next to the door. At the far end of the hall from where
-    you are standing, you can see the [opening] to the security station.
+    inebriated state.

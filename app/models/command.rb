@@ -24,7 +24,7 @@ class Command
   end
   
   def referent
-    @referent ||= current_room.child_widgets.where(name: /#{object_name}/i).first
+    @referent ||= current_room.recursive_where(name: /#{object_name}/i).first
   end
   
   def event
