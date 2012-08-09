@@ -19,13 +19,26 @@ class TerminalController < ApplicationController
       moved_to_room: @current_state.moved_to_room?,
       description: render_to_string(partial: 'game_state', layout: false, object: @current_state),
       world_map: @current_state.moved_to_room? ? @current_state.game_save.generate_map : nil,
-      entry: @current_state.event ? {
-        info: render_to_string(partial: 'entry', layout: false, object: @current_state.event),
-        before: @current_state.game_save.next_event_name_after(@current_state.event)
+      entry: @current_state.entry ? {
+        info: render_to_string(partial: 'entry', layout: false, object: @current_state.entry),
+        before: @current_state.game_save.next_entry_name_after(@current_state.entry)
         } : nil
     }
     respond_to do |format|
       format.json { render json: data.to_json }
+    end
+  end
+  
+  def read_entry
+    @game = Game.find(params['game_id'])
+    @entry_name = params['entry_name']
+    @game_save = @game.load_last_save_for(current_user)
+    respond_to do |format|
+      if @game_save.read_entry!(@entry_name)
+        format.json { render json: true }
+      else
+        format.json { render json: @game_save.errors, status: :unprocessable_entity }
+      end
     end
   end
 end

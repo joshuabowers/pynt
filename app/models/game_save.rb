@@ -46,10 +46,14 @@ class GameSave
     end
   end
   
-  def next_event_name_after(event)
-    names = events.asc(:name).map(&:name)
-    n = names[names.index(event.name)+1]
-    "event-#{n.parameterize}" if n
+  def next_entry_name_after(entry)
+    names = entries.asc(:name).map(&:parameterized_name)
+    i = names.index(entry.parameterized_name)
+    names[i+1] if i
+  end
+  
+  def read_entry!(entry_name)
+    entries.where(parameterized_name: entry_name).first.update_attributes!(read: true)
   end
   
   def generate_map(options = {})

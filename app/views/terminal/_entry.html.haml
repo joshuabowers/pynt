@@ -1,2 +1,4 @@
-%dt{id: "entry-#{entry.name.parameterize}", class: (entry.read? ? "have" : "have-not") + "-read"}= entry.name
+%dt{id: "entry-#{entry.name.parameterize}", class: (entry.read? ? "have" : "have-not") + "-read"}
+  %span &rarr;
+  = entry.name
 %dd= entry.value

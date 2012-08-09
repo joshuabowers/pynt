@@ -65,15 +65,30 @@
             color: tint(green, 45%)
             text-decoration: none
             +transition(all 2s ease-out-back)
+            &.unread-entries::after
+              content: '\2022'
+              color: tint(red, 55%)
+              padding-left: 0.25em
             &.current
               color: tint(green, 60%)
               text-shadow: 0 0 10px transparentize(darken(white, 20%), 0.15)
               font-weight: bold
       & > dl
         dt
-          &.have-not-read::after
-            content: ' \2022'
-            color: tint(blue, 55%)
+          cursor: pointer
+          & > span
+            +inline-block
+            +transition(all 1s ease)
+            font-size: 125%
+          &.opened
+            > span
+              +transform(rotate(90deg))
+          &.have-read
+            > span
+              color: tint(green, 45%)
+          &.have-not-read
+            > span
+              color: tint(red, 55%)
         dd
           font-size: smaller
           display: none

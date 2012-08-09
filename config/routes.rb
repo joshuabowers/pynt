@@ -8,7 +8,7 @@ Pynt::Application.routes.draw do
 
   get 'terminal/games/:title' => 'terminal#index', as: :terminal
   post "terminal/execute"
-  post "terminal/read_entry"
+  post "terminal/:game_id/read_entry" => 'terminal#read_entry', as: :terminal_read_entry
   
   root to: "games#index"
 
