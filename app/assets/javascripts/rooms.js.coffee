@@ -33,6 +33,13 @@ $ ->
           else
             cursor = cm.getCursor(false)
             cm.setLine cursor.line, commenter.handle_line(cm.getLine(cursor.line))
+        "[": (cm) ->
+          if cm.somethingSelected()
+            cm.replaceSelection("[#{cm.getSelection()}]")
+            CodeMirror.commands["goCharRight"](cm)
+          else
+            cm.replaceRange("[]", cm.getCursor(false))
+            CodeMirror.commands["goCharLeft"](cm)
         "Cmd-Enter": (cm) ->
           CodeMirror.commands["goLineEnd"](cm)
           CodeMirror.commands["newlineAndIndent"](cm)
