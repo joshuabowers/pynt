@@ -6,11 +6,10 @@ class GameState
   field :hint, type: String
   field :added_item_ids, type: Array
   field :removed_item_ids, type: Array
-  field :added_database_record_ids, type: Array
-  field :updated_database_record_ids, type: Array
   field :updated_variables, type: Hash
   field :moved_to_room_id, type: Moped::BSON::ObjectId
   embeds_one :command
+  embeds_one :entry, as: :definable
   
   delegate :variables, :current_room, :game, to: :game_save
   delegate :referent, :event, to: :command
@@ -23,6 +22,7 @@ class GameState
     self.build_command.parse(command_line)
     if valid?
       modify_variables
+      clone_entry
       if event.change_location
         destination = game.rooms.where(parameterized_name: referent.destination_parameterized_name).first
         enter_room(destination)
@@ -56,6 +56,18 @@ private
     end
     event.updated_variables.each do |key, value|
       self.variables[key] = value
+    end
+  end
+  
+  def clone_entry
+    if event.description.is_a? Entry
+      self.entry = event.description.clone
+      previous_entry = game_save.entries.where(name: self.entry.name).first
+      if previous_entry
+        previous_entry.write_attributes(self.entry.attributes)
+      else
+        game_save.entries << self.entry.clone
+      end
     end
   end
   

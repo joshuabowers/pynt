@@ -1,5 +1,6 @@
 class Entry < Description
   field :name, type: String
+  embedded_in :definable, polymorphic: true
   
   def parse(hash)
     super(hash["info"])
