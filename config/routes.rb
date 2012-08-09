@@ -6,8 +6,9 @@ Pynt::Application.routes.draw do
 
   devise_for :users
 
-  match 'terminal/games/:title' => 'terminal#index', as: :terminal
+  get 'terminal/games/:title' => 'terminal#index', as: :terminal
   post "terminal/execute"
+  post "terminal/read_entry"
   
   root to: "games#index"
 

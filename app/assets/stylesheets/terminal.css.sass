@@ -69,7 +69,18 @@
               color: tint(green, 60%)
               text-shadow: 0 0 10px transparentize(darken(white, 20%), 0.15)
               font-weight: bold
-      & > ul, & > div
+      & > dl
+        dt
+          &.have-not-read::after
+            content: ' \2022'
+            color: tint(blue, 55%)
+        dd
+          font-size: smaller
+          display: none
+          +transition(all 2s ease)
+          &.opened
+            display: block
+      & > ul, & > dl, & > div
         +box-flex(1)
       #database, #inventory, #location
         display: none

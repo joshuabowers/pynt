@@ -64,7 +64,7 @@ private
       self.entry = event.description.clone
       previous_entry = game_save.entries.where(name: self.entry.name).first
       if previous_entry
-        previous_entry.write_attributes(self.entry.attributes)
+        previous_entry.value = self.entry.value
       else
         game_save.entries << self.entry.clone
       end

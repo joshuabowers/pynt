@@ -46,6 +46,12 @@ class GameSave
     end
   end
   
+  def next_event_name_after(event)
+    names = events.asc(:name).map(&:name)
+    n = names[names.index(event.name)+1]
+    "event-#{n.parameterize}" if n
+  end
+  
   def generate_map(options = {})
     options.reverse_merge! format: :svg
     graph = {overlap: "scale", splines: true, sep: 0.5, bgcolor: "transparent"}

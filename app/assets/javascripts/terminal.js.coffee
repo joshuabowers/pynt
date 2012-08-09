@@ -11,6 +11,9 @@ $ ->
     window.location.hash = default_tab unless window.location.hash
     $("#{window.location.hash || default_tab}_tab").click()
     
+    $("#database dt").live "click", ->
+      $(this).next("dd").toggleClass("opened")
+    
     # A handler for updating the UI based off of how the server responded to the executed command.
     $("#terminal-command-line form").on "ajax:success", (event, data, status, xhr) ->
       if data['moved_to_room']

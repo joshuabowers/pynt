@@ -18,7 +18,11 @@ class TerminalController < ApplicationController
       id: "gs#{@current_state.id.to_s}",
       moved_to_room: @current_state.moved_to_room?,
       description: render_to_string(partial: 'game_state', layout: false, object: @current_state),
-      world_map: @current_state.moved_to_room? ? @current_state.game_save.generate_map : nil
+      world_map: @current_state.moved_to_room? ? @current_state.game_save.generate_map : nil,
+      entry: @current_state.event ? {
+        info: render_to_string(partial: 'entry', layout: false, object: @current_state.event),
+        before: @current_state.game_save.next_event_name_after(@current_state.event)
+        } : nil
     }
     respond_to do |format|
       format.json { render json: data.to_json }

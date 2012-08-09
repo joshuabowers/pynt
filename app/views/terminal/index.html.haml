@@ -7,8 +7,8 @@
       %ul
         - [:database, :inventory].each do |link|
           %li= link_to link.to_s.titleize, "##{link}", id: "#{link}_tab"
-    %ul#database
-      %li Sample Database Entry!
+    %dl#database
+      = render partial: 'entry', collection: @game_save.entries.asc(:name)
     %ul#inventory
       %li One slightly abused and musty backpack
       %li Death-Rä (tm)
