@@ -3,7 +3,7 @@ class Description
   field :value, type: String
   embedded_in :descriptive, polymorphic: true
   
-  def self.parse(hash)
+  def self.parse(data)
     # result, key = *case
     # when hash.is_a?(String) 
     #   [self.new, nil]
@@ -15,13 +15,13 @@ class Description
     #   [Triggered.new, "upon"]
     # end
     result, key = 
-      *case hash
+      *case data
       when String
         [self, nil]
       when Hash
-        [class_from_keyword[hash.keys.first], hash.keys.first]
+        [class_from_keyword[data.keys.first], data.keys.first]
       end
-    result.new.tap {|d| d.parse(key ? hash[key] : hash)}
+    result.new.tap {|d| d.parse(key ? data[key] : data)}
   end
   
   def self.class_from_keyword
@@ -32,8 +32,8 @@ class Description
     nil
   end
     
-  def parse(hash)
-    self.value = hash.strip if hash.is_a?(String)
+  def parse(data)
+    self.value = data.strip if data.is_a?(String)
   end
   
   def to_s(game_save)

@@ -3,19 +3,19 @@ class Requirement
   field :comparisons, type: Hash, default: {}
   embedded_in :contingent, polymorphic: true
   
-  def parse(hash)
+  def parse(data)
     self.comparisons = 
-      case hash
+      case data
       when String
-        {hash => true}
+        {data => true}
       when Hash
-        hash
+        data
       else
         {}
       end
   end
   
-  def satisfied?(game_save)
+  def fulfilled?(game_save)
     game_save.all_comparisons_valid?(self.comparisons)
   end
 end

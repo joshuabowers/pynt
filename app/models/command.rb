@@ -8,7 +8,7 @@ class Command
   
   class VariablesSatisfiedValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
-      record.errors.add attribute, "does not satisfy all variables" unless value && value.satisfied?(record.game_save)
+      record.errors.add attribute, "does not satisfy all variables" unless value.try(:interactive?, record.game_save)
     end
   end
   

@@ -1,0 +1,2 @@
+Fabricator(:construct) do
+end
