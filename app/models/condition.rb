@@ -15,6 +15,10 @@ class Condition < Description
       end 
   end
   
+  def self.keyword
+    "when"
+  end
+  
   def satisfied?(game_save)
     game_save.all_comparisons_valid?(self.comparisons)
   end

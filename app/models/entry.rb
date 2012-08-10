@@ -6,6 +6,10 @@ class Entry < Description
   
   before_save :parameterize_name
   
+  def self.keyword
+    "entry"
+  end
+  
   def parse(hash)
     super(hash["info"])
     self.name = hash["name"]

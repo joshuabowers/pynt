@@ -1,6 +1,10 @@
 class Conditional < Description
   embeds_many :conditions
   
+  def self.keyword
+    "case"
+  end
+  
   def parse(hash)
     hash.each do |condition|
       self.conditions.build.parse(condition)

@@ -1,0 +1,2 @@
+Fabricator(:triggered) do
+end
