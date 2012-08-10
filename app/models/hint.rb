@@ -3,7 +3,7 @@ class Hint
   embeds_one :description, as: :descriptive
   embedded_in :hintable, polymorphic: true
   
-  def parse(hash)
-    self.description = Description.parse(hash)
+  def parse(data)
+    self.description = Description.parse(data)
   end
 end

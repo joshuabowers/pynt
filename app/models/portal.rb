@@ -11,8 +11,8 @@ class Portal < Widget
     self.destination_id = room.id
   end
   
-  def parse(hash)
+  def parse(data)
     super
-    self.destination_parameterized_name = hash["destination"].parameterize
+    self.destination_parameterized_name = data["destination"].parameterize
   end
 end

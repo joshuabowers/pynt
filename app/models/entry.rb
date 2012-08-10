@@ -10,9 +10,9 @@ class Entry < Description
     "entry"
   end
   
-  def parse(hash)
-    super(hash["info"])
-    self.name = hash["name"]
+  def parse(data)
+    super(data["info"])
+    self.name = data["name"]
   end
 private
   def parameterize_name
