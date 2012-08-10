@@ -26,7 +26,8 @@ class Widget
   end
 
   def satisfied?(game_save)
-    requirement ? requirement.satisfied?(game_save) : true
+    parent_satisfied = parent_widget ? parent_widget.satisfied?(game_save) : true
+    parent_satisfied && (requirement ? requirement.satisfied?(game_save) : true)
   end
   
   def recursive_where(*options)
