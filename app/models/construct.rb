@@ -10,15 +10,15 @@ class Construct
     self.build_requirement.parse(data["requires"]) if data["requires"]
   end
   
-  def interactive?(game_save)
-    requirement.nil? || requirement.fulfilled?(game_save)
+  def interactive?(game_state)
+    requirement.nil? || requirement.fulfilled?(game_state)
   end
   
-  def full_description(game_save)
-    description.try(:to_s, game_save)
+  def full_description(game_state)
+    description.try(:to_s, game_state)
   end
   
-  def full_hint(game_save)
-    hint.try(:description).try(:to_s, game_save)
+  def full_hint(game_state)
+    hint.try(:description).try(:to_s, game_state)
   end
 end

@@ -1,4 +1,4 @@
 %dt{id: "entry-#{entry.name.parameterize}", class: (entry.read? ? "have" : "have-not") + "-read"}
   %span &rarr;
   = entry.name
-%dd= entry.value
+%dd= entry.to_s(@current_state)

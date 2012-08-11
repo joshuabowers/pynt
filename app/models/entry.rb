@@ -2,6 +2,7 @@ class Entry < Description
   field :name, type: String
   field :parameterized_name, type: String
   field :read, type: Boolean, default: false
+  embeds_one :description, as: :descriptive
   embedded_in :definable, polymorphic: true
   
   before_save :parameterize_name
@@ -11,8 +12,13 @@ class Entry < Description
   end
   
   def parse(data)
-    super(data["info"])
+    super
     self.name = data["name"]
+    self.description = Description.parse(data["info"])
+  end
+  
+  def to_s(game_state)
+    description.try(:to_s, game_state)
   end
 private
   def parameterize_name

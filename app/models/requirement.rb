@@ -15,7 +15,7 @@ class Requirement
       end
   end
   
-  def fulfilled?(game_save)
-    game_save.all_comparisons_valid?(self.comparisons)
+  def fulfilled?(game_state)
+    game_state.game_save.all_comparisons_valid?(self.comparisons)
   end
 end

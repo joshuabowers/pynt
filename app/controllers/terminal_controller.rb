@@ -5,6 +5,7 @@ class TerminalController < ApplicationController
     @game = Game.where(parameterized_title: params['title']).first
     if @game
       @game_save = @game.load_last_save_for(current_user)
+      @current_state = @game_save.current_room_history.last
     else
       redirect_to root_path, alert: "How did you get here? Couldn't find: #{params['title']}"
     end

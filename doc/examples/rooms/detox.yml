@@ -54,8 +54,7 @@ room:
         chest appears to have been cut open --- or perhaps something burst out of it.
         Whichever the case, he looks as flayed as a frog in a classic biology disection
         lab. His ribcage appears to be bent outward. Lampig's intestines were wrapped
-        around his neck before being welded to the ceiling with ProgMatt. 
-#        His lanyard is holding his [security keycard].
+        around his neck before being welded to the ceiling with ProgMatt.
     - action: touch
       description: >
         ...
@@ -63,26 +62,17 @@ room:
     - name: security keycard
       requires: inspect-lampig
       description:
-      	upon: # A triggered description
+        upon: # A triggered description
         - action: inspect
           description: >
-          	You can see his [security keycard] just barely poking out from behind the gore.
-#        case:
-#        - when:
-#            inspect-lampig: false
-#          description: >
-#            There seems to be something on a lanyard entwined with his intestines.
-#        - else: >
-#            You can see his [security keycard] just barely poking out from behind the gore.
+            You can see his [security keycard] just barely poking out from behind the gore.
       events:
       - action: inspect
-#        requires: inspect-lampig
         description: >
           The keycard seems to attached to the lanyard with alligator clips. 
         hint: >
           It should be possible to take it...
       - action: take
-#        requires: inspect-lampig
         description: 
           entry:
             name: "Security Keycard"

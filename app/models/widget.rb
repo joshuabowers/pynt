@@ -19,16 +19,16 @@ class Widget < Construct
     parse_children(data)
   end
   
-  def interactive?(game_save)
-    (parent_widget.nil? || parent_widget.interactive?(game_save)) && super
+  def interactive?(game_state)
+    (parent_widget.nil? || parent_widget.interactive?(game_state)) && super
   end
   
-  def full_description(game_save)
-    ([super] + child_widgets.map {|widget| widget.full_description(game_save)}).join(" ") if interactive?(game_save)
+  def full_description(game_state)
+    ([super] + child_widgets.map {|widget| widget.full_description(game_state)}).join(" ") if interactive?(game_state)
   end
   
-  def full_hint(game_save)
-    ([super] + child_widgets.map {|widget| widget.full_hint(game_save)}).join("\n") if interactive?(game_save)
+  def full_hint(game_state)
+    ([super] + child_widgets.map {|widget| widget.full_hint(game_state)}).join("\n") if interactive?(game_state)
   end
   
   def recursive_where(*options)

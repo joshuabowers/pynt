@@ -1,0 +1,2 @@
+Fabricator(:effect) do
+end

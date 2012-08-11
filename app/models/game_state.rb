@@ -64,7 +64,7 @@ private
       self.entry = event.description.clone
       previous_entry = game_save.entries.where(name: self.entry.name).first
       if previous_entry
-        previous_entry.value = self.entry.value
+        previous_entry.description = self.entry.description
       else
         game_save.entries << self.entry.clone
       end
@@ -80,8 +80,8 @@ private
   
   def output
     self.write_attributes(
-      description: valid? ? source.full_description(game_save) : I18n.t("game_state.error"),
-      hint: valid? ? source.full_hint(game_save) : nil
+      description: valid? ? source.full_description(self) : I18n.t("game_state.error"),
+      hint: valid? ? source.full_hint(self) : nil
     )
   end
 end

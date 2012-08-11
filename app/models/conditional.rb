@@ -11,7 +11,7 @@ class Conditional < Description
     end
   end
   
-  def to_s(game_save)
-    self.branches.select {|branch| branch.fulfilled?(game_save)}.first.try(:to_s, game_save) || ""
+  def to_s(game_state)
+    self.branches.select {|branch| branch.fulfilled?(game_state)}.first.try(:to_s, game_state) || ""
   end
 end
