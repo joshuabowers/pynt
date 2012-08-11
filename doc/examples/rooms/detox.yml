@@ -66,6 +66,11 @@ room:
         - action: inspect
           description: >
             You can see his [security keycard] just barely poking out from behind the gore.
+        - else:
+            case:
+            - when: inspect-lampig
+              description: >
+                His [security keycard] can be seen hanging off a lanyard around his neck.
       events:
       - action: inspect
         description: >
