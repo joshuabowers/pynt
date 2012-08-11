@@ -3,7 +3,7 @@ class GameSave
   include Mongoid::Timestamps
   field :game_id, type: Moped::BSON::ObjectId
   field :current_room_id, type: Moped::BSON::ObjectId
-  field :variables, type: Hash, default: {}
+  field :variables, type: Hash, default: {"entered-rooms" => {}, "items" => {}}
   embedded_in :user
   embeds_many :game_states, cascade_callbacks: true
   embeds_many :visited_rooms
@@ -29,10 +29,10 @@ class GameSave
     comparisons.all? do |key, value| 
       case key
       when "first-enter"
-        variable = self.variables["#{current_room.parameterized_name}-times-entered"]
+        variable = self.variables["entered-rooms"][current_room.parameterized_name]
         value ? variable == 1 : variable > 1
       else
-        (self.variables[key] || false) == value
+        (self.variables["items"][key] || self.variables[key] || false) == value
       end
     end
   end
@@ -59,7 +59,7 @@ class GameSave
   
   def generate_map(options = {})
     options.reverse_merge! format: :svg
-    graph = {overlap: "scale", splines: true, sep: 0.5, bgcolor: "transparent"}
+    graph = {overlap: "scale", splines: true, sep: 0.01, bgcolor: "transparent"}
     node = {margin: "0.2, 0.055", style: "rounded", shape: "box"}
     edge = {arrowhead: "vee"}
     GraphViz.new("world-map", type: :digraph, use: :neato) do |g|

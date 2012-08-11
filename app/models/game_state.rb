@@ -47,8 +47,8 @@ private
   def enter_room(destination)
     game_save.update_visited_rooms(current_room, destination)
     game_save.current_room_id = destination.id
-    self.variables["#{destination.parameterized_name}-times-entered"] ||= 0
-    self.variables["#{destination.parameterized_name}-times-entered"] += 1
+    self.variables["entered-rooms"][destination.parameterized_name] ||= 0
+    self.variables["entered-rooms"][destination.parameterized_name] += 1
     self.moved_to_room_id = destination.id
   end
   
@@ -78,11 +78,11 @@ private
     when event.add_to_inventory
       items << referent.clone.tap do |item|
         self.added_item_id = item.id
-        variables["item-#{item.parameterized_name}"] = true
+        variables["items"][item.parameterized_name] = true
       end
     when event.remove_from_inventory
       self.removed_item = items.where(parameterized_name: referent.parameterized_name).first.clone
-      variables["item-#{removed_item.parameterized_name}"] = false
+      variables["items"][removed_item.parameterized_name] = false
     end
   end
   
