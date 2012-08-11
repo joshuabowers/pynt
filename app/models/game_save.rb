@@ -8,6 +8,7 @@ class GameSave
   embeds_many :game_states, cascade_callbacks: true
   embeds_many :visited_rooms
   embeds_many :entries, as: :definable
+  embeds_many :items, as: :inventory
   
   after_build :setup_initial_save_state
   

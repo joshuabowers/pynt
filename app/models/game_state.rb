@@ -4,18 +4,22 @@ class GameState
   embedded_in :game_save
   field :description, type: String
   field :hint, type: String
-  field :added_item_ids, type: Array
-  field :removed_item_ids, type: Array
+  field :added_item_id, type: Moped::BSON::ObjectId
   field :updated_variables, type: Hash
   field :moved_to_room_id, type: Moped::BSON::ObjectId
   embeds_one :command
   embeds_one :entry, as: :definable
+  embeds_one :removed_item, as: :inventory, class_name: "Item"
   
-  delegate :variables, :current_room, :game, to: :game_save
+  delegate :items, :variables, :current_room, :game, to: :game_save
   delegate :referent, :event, to: :command
     
   def moved_to_room?
     self.moved_to_room_id.present?
+  end
+  
+  def added_item
+    items.find(self.added_item_id) if self.added_item_id
   end
   
   def handle(command_line)
@@ -23,10 +27,8 @@ class GameState
     if valid?
       modify_variables
       clone_entry
-      if event.change_location
-        destination = game.rooms.where(parameterized_name: referent.destination_parameterized_name).first
-        enter_room(destination)
-      end
+      update_inventory
+      enter_room(referent.destination) if event.change_location
       cache_modified_variables
     end
     output
@@ -68,6 +70,19 @@ private
       else
         game_save.entries << self.entry.clone
       end
+    end
+  end
+  
+  def update_inventory
+    case
+    when event.add_to_inventory
+      items << referent.clone.tap do |item|
+        self.added_item_id = item.id
+        variables["item-#{item.parameterized_name}"] = true
+      end
+    when event.remove_from_inventory
+      self.removed_item = items.where(parameterized_name: referent.parameterized_name).first.clone
+      variables["item-#{removed_item.parameterized_name}"] = false
     end
   end
   

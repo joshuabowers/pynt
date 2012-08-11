@@ -9,6 +9,7 @@ class Widget < Construct
   scope :items, where(_type: "Item")
   
   delegate :portals, :scenery, :items, to: :child_widgets
+  delegate :game, to: :parent_widget
   
   before_save :parameterize_name
 
