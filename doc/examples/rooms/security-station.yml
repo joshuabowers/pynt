@@ -23,12 +23,12 @@ room:
       hint:
         case:
         - when:
-            security-card: false
+            security-keycard: false
           description: >
             The door doesn't seem to be responsive to any of your machinations; it's
             probably keyed to a HabSec officer.
     - action: use
-      requires: security-card
+      requires: security-keycard
       update: location
   description: >
     This room is better illuminated than the [hallway], in no small part thanks to light

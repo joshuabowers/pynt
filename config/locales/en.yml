@@ -5,3 +5,6 @@ en:
   hello: "Hello world"
   game_state:
     error: "Try as hard as you might, you simply cannot do that."
+  inventory:
+    already_have: "You already have that."
+    no_longer_have: "You cannot remove that which you do not have."

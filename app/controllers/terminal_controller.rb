@@ -23,7 +23,12 @@ class TerminalController < ApplicationController
       entry: @current_state.entry ? {
         info: render_to_string(partial: 'entry', layout: false, object: @current_state.entry),
         before: @current_state.game_save.next_entry_name_after(@current_state.entry)
-        } : nil
+        } : nil,
+      added_item: @current_state.added_item_id ? {
+        info: nil,
+        before: nil
+      } : nil,
+      removed_item: @current_state.removed_item ? {} : nil
     }
     respond_to do |format|
       format.json { render json: data.to_json }

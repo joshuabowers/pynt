@@ -25,12 +25,20 @@ class GameSave
     game_states.where(:created_at.gte => entry_state.created_at).asc(:created_at)
   end
   
+  def current_state
+    game_states.asc(:created_at).last
+  end
+  
   def all_comparisons_valid?(comparisons)
     comparisons.all? do |key, value| 
       case key
       when "first-enter"
         variable = self.variables["entered-rooms"][current_room.parameterized_name]
         value ? variable == 1 : variable > 1
+      when "in-inventory"
+        self.variables["items"][current_state.referent.path] == true
+      when "not-in-inventory"
+        self.variables["items"][current_state.referent.path] != true
       else
         (self.variables["items"][key] || self.variables[key] || false) == value
       end

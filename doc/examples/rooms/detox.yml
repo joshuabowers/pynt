@@ -60,7 +60,8 @@ room:
         ...
     items:
     - name: security keycard
-      requires: inspect-lampig
+      requires: 
+        inspect-lampig: true
       description:
         upon: # A triggered description
         - action: inspect
@@ -73,23 +74,35 @@ room:
                 His [security keycard] can be seen hanging off a lanyard around his neck.
       events:
       - action: inspect
-        description: >
-          The keycard seems to attached to the lanyard with alligator clips. 
-        hint: >
-          It should be possible to take it...
+        description:
+          case:
+          - when: in-inventory
+            description:
+              entry:
+                name: "Security Keycard"
+                info: >
+                  You never fail to marvel at how retro the present is: humanity has left
+                  the erstwhile prison of its homeworld; it has managed to build orbiting
+                  habitats around the planets within the solar system; it somehow managed
+                  to develop ProgMatt. Yet, rudimentary slabs of plastic are still used
+                  for identification purposes. Hab Keycards are a bit different from what
+                  past societies had, though: they communicate using near field technology
+                  with locks, and are clonable if you have the proper permissions. Still,
+                  nothing stops you from more low-tech approaches of acquisition.
+          - else: >
+              The keycard seems to attached to the lanyard with alligator clips. 
+        hint:
+          case:
+          - when: not-in-inventory
+            description: >
+              It should be possible to take it...
       - action: take
-        description: 
-          entry:
-            name: "Security Keycard"
-            info: >
-              You never fail to marvel at how retro the present is: humanity has left
-              the erstwhile prison of its homeworld; it has managed to build orbiting
-              habitats around the planets within the solar system; it somehow managed
-              to develop ProgMatt. Yet, rudimentary slabs of plastic are still used
-              for identification purposes. Hab Keycards are a bit different from what
-              past societies had, though: they communicate using near field technology
-              with locks, and are clonable if you have the proper permissions. Still,
-              nothing stops you from more low-tech approaches of acquisition.
+        update: add-to-inventory
+        description: >
+          It was a grisly job, what with slipping in the [pool] and faceplanting in Lampig's
+          guts, but you managed to detach the card from the lanyard. Success!
+        hint: >
+          Perhaps you should inspect the card to find out more about it...
   - name: pool
     requires: detox-power
     description: >

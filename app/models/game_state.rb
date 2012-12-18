@@ -5,11 +5,12 @@ class GameState
   field :description, type: String
   field :hint, type: String
   field :added_item_id, type: Moped::BSON::ObjectId
+  field :removed_item_id, type: Moped::BSON::ObjectId
   field :updated_variables, type: Hash
   field :moved_to_room_id, type: Moped::BSON::ObjectId
   embeds_one :command
   embeds_one :entry, as: :definable
-  embeds_one :removed_item, as: :inventory, class_name: "Item"
+  # embeds_one :removed_item, as: :inventory, class_name: "Item"
   
   delegate :items, :variables, :current_room, :game, to: :game_save
   delegate :referent, :event, to: :command
@@ -22,26 +23,41 @@ class GameState
     items.find(self.added_item_id) if self.added_item_id
   end
   
+  def removed_item
+    items.find(self.removed_item_id) if self.removed_item_id
+  end
+  
   def handle(command_line)
     self.build_command.parse(command_line)
-    if valid?
-      modify_variables
-      clone_entry
-      update_inventory
-      enter_room(referent.destination) if event.change_location
-      cache_modified_variables
+    begin
+      if command_valid = valid?
+        modify_variables
+        clone_entry
+        update_inventory
+        enter_room(referent.destination) if event.change_location
+        cache_modified_variables
+      end
+    rescue Exception => e
+      error_message = e.to_s
+    ensure
+      output(command_valid, error_message)
     end
-    output
   end
   
   def start_game(starting_room)
     enter_room(starting_room)
     cache_modified_variables
-    output
+    output(true)
   end
   
   def source
     @source ||= moved_to_room? ? current_room : event
+  end
+  
+  def locate_widget(widget_name)
+    items.in_inventory.where(name: /#{widget_name}/i).first ||
+    items.in_current_room(current_room).where(name: /#{widget_name}/i).first ||
+    current_room.recursive_where(name: /#{widget_name}/i).first
   end
 private
   def enter_room(destination)
@@ -76,13 +92,25 @@ private
   def update_inventory
     case
     when event.add_to_inventory
-      items << referent.clone.tap do |item|
-        self.added_item_id = item.id
-        variables["items"][item.parameterized_name] = true
+      unless items.where(path: referent.path).first
+        items << referent.clone.tap do |item|
+          self.added_item_id = item.id
+          item.move_to_inventory
+          variables["items"][item.path] = true
+        end
+      else
+        raise I18n.t("inventory.already_have")
       end
     when event.remove_from_inventory
-      self.removed_item = items.where(parameterized_name: referent.parameterized_name).first.clone
-      variables["items"][removed_item.parameterized_name] = false
+      unless items.in_inventory.where(path: referent.path).first
+        items.where(path: referent.path).first.tap do |item|
+          self.removed_item_id = item.id
+          item.move_to(current_room)
+          variables["items"][item.path] = false
+        end
+      else
+        raise I18n.t("inventory.no_longer_have")
+      end
     end
   end
   
@@ -93,10 +121,10 @@ private
     end
   end
   
-  def output
+  def output(command_valid, error_message = nil)
     self.write_attributes(
-      description: valid? ? source.full_description(self) : I18n.t("game_state.error"),
-      hint: valid? ? source.full_hint(self) : nil
+      description: command_valid ? source.full_description(self) : (error_message || I18n.t("game_state.error")),
+      hint: command_valid ? source.full_hint(self) : nil
     )
   end
 end

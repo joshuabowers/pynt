@@ -1,6 +1,7 @@
 class Widget < Construct
   field :name, type: String
   field :parameterized_name, type: String
+  field :path, type: String
   embeds_many :events, as: :triggerable
   recursively_embeds_many cascade_callbacks: true
   
@@ -11,7 +12,7 @@ class Widget < Construct
   delegate :portals, :scenery, :items, to: :child_widgets
   delegate :game, to: :parent_widget
   
-  before_save :parameterize_name
+  before_save :parameterize_name, :generate_path
 
   def parse(data)
     super
@@ -42,6 +43,10 @@ class Widget < Construct
 private
   def parameterize_name
     self.parameterized_name = self.name.parameterize
+  end
+  
+  def generate_path
+    self.path = [self.parent_widget.try(:path), self.parameterized_name].compact.join("/") unless self.path
   end
 
   def parse_children(data)
