@@ -20,6 +20,10 @@ class Entry < Description
   def to_s(game_state)
     description.try(:to_s, game_state)
   end
+  
+  def nested_description_of_type(game_state, type)
+    super { self.description }
+  end
 private
   def parameterize_name
     self.parameterized_name = self.name.parameterize

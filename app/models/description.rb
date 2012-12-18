@@ -26,4 +26,12 @@ class Description
   
   def to_s(game_state)
   end
+  
+  def nested_description_of_type(game_state, type)
+    if self.is_a?(type)
+      self
+    elsif block_given?
+      yield.nested_description_of_type(game_state, type)
+    end
+  end
 end

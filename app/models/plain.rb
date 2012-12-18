@@ -12,4 +12,8 @@ class Plain < Description
   def to_s(game_state)
     self.value
   end
+  
+  def nested_description_of_type(game_state, type)
+    super
+  end
 end

@@ -29,6 +29,7 @@ class GameState
   
   def handle(command_line)
     self.build_command.parse(command_line)
+    command_valid, error_message = false, nil
     begin
       if command_valid = valid?
         modify_variables
@@ -78,13 +79,15 @@ private
   end
   
   def clone_entry
-    if event.description.is_a? Entry
-      self.entry = event.description.clone
-      previous_entry = game_save.entries.where(name: self.entry.name).first
-      if previous_entry
-        previous_entry.description = self.entry.description
-      else
-        game_save.entries << self.entry.clone
+    event.description.try(:nested_description_of_type, self, Entry).tap do |entry|
+      if entry
+        self.entry = entry.clone
+        previous_entry = game_save.entries.where(name: self.entry.name).first
+        if previous_entry
+          previous_entry.description = self.entry.description
+        else
+          game_save.entries << self.entry.clone
+        end
       end
     end
   end

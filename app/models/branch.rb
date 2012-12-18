@@ -20,4 +20,8 @@ class Branch < Description
   def to_s(game_state)
     description.try(:to_s, game_state)
   end
+  
+  def nested_description_of_type(game_state, type)
+    super { self.description }
+  end
 end
