@@ -84,10 +84,15 @@ private
         self.entry = entry.clone
         previous_entry = game_save.entries.where(name: self.entry.name).first
         if previous_entry
-          previous_entry.description = self.entry.description
-          previous_entry.updated = true
-          previous_entry.read = false
-          self.entry = previous_entry
+          if previous_entry.description.to_s(self) != self.entry.description.to_s(self)
+            self.entry = previous_entry.tap do |e|
+              e.description = self.entry.description
+              e.updated = true
+              e.read = false
+            end
+          else
+            self.entry = nil
+          end
         else
           game_save.entries << self.entry.clone
         end
