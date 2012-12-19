@@ -90,7 +90,7 @@ room:
                   with locks, and are clonable if you have the proper permissions. Still,
                   nothing stops you from more low-tech approaches of acquisition.
           - else: >
-              The keycard seems to attached to the lanyard with alligator clips. 
+              The keycard seems to be attached to the lanyard with alligator clips. 
         hint:
           case:
           - when: not-in-inventory

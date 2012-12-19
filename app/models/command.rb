@@ -24,7 +24,6 @@ class Command
   end
   
   def referent
-    # @referent ||= current_room.recursive_where(name: /#{object_name}/i).first
     @referent ||= game_state.locate_widget(object_name)
   end
   

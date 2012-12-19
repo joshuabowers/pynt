@@ -7,7 +7,7 @@ gem 'rails', '3.2.6'
 
 gem 'thin'
 
-gem 'mongoid', '~> 3.0.1'
+gem 'mongoid', '~> 3.0.15'
 gem 'devise', '~> 2.1.2'
 gem 'cancan', '~> 1.6.8'
 

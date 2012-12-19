@@ -26,19 +26,28 @@ class Widget < Construct
   end
   
   def full_description(game_state)
-    ([super] + child_widgets.map {|widget| widget.full_description(game_state)}).join(" ") if interactive?(game_state)
+    ([super] + non_inventoried_children(game_state).map {|widget| widget.full_description(game_state)}).join(" ") if interactive?(game_state)
   end
   
   def full_hint(game_state)
-    ([super] + child_widgets.map {|widget| widget.full_hint(game_state)}).join("\n") if interactive?(game_state)
+    ([super] + non_inventoried_children(game_state).map {|widget| widget.full_hint(game_state)}).join("\n") if interactive?(game_state)
   end
   
-  def recursive_where(*options)
-    child_widgets.where(*options).to_a + child_widgets.map {|widget| widget.recursive_where(*options)}.flatten
+  def recursive_where(*args)
+    options = args.extract_options!
+    game_state = options.delete(:game_state)
+    combined = args.clone.push(options.merge(game_state: game_state))
+    children = game_state ? non_inventoried_children(game_state) : child_widgets
+    children.where(*args.clone.push(options)).to_a + children.map {|widget| widget.recursive_where(*combined)}.flatten
   end
     
   def recursive_events
     events + child_widgets.map(&:recursive_events).flatten
+  end
+  
+  def non_inventoried_children(game_state)
+    # child_widgets.reject {|child| game_state.items.where(path: child.path).count > 0}
+    child_widgets.where(:path.nin => game_state.items.map(&:path))
   end
 private
   def parameterize_name

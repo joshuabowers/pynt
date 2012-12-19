@@ -58,7 +58,7 @@ class GameState
   def locate_widget(widget_name)
     items.in_inventory.where(name: /#{widget_name}/i).first ||
     items.in_current_room(current_room).where(name: /#{widget_name}/i).first ||
-    current_room.recursive_where(name: /#{widget_name}/i).first
+    current_room.recursive_where(name: /#{widget_name}/i, game_state: self).first
   end
 private
   def enter_room(destination)

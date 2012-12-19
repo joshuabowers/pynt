@@ -30,10 +30,10 @@ class Event < Construct
   end
 private
   def widgets_with_triggered_descriptions(game_state)
-    game_state.referent.recursive_where("description.effects.action" => game_state.event.action)
+    game_state.referent.recursive_where("description.effects.action" => game_state.event.action, game_state: game_state)
   end
   
   def widgets_with_triggered_hints(game_state)
-    game_state.referent.recursive_where("hint.description.effects.action" => game_state.event.action)
+    game_state.referent.recursive_where("hint.description.effects.action" => game_state.event.action, game_state: game_state)
   end
 end
