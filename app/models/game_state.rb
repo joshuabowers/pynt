@@ -85,6 +85,9 @@ private
         previous_entry = game_save.entries.where(name: self.entry.name).first
         if previous_entry
           previous_entry.description = self.entry.description
+          previous_entry.updated = true
+          previous_entry.read = false
+          self.entry = previous_entry
         else
           game_save.entries << self.entry.clone
         end

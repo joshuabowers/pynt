@@ -39,11 +39,15 @@ $ ->
       else
         $("#history").append(data['description'])
       if data['entry']?
-        next_entry = $("#entry-#{data['entry']['before']}")
-        if next_entry.length > 0
-          next_entry.before(data['entry']['info'])
+        if data['entry']['updated']
+          $("##{data['entry']['id']} + dd").replaceWith('')
+          $("##{data['entry']['id']}").replaceWith(data['entry']['info'])
         else
-          $("#database").append(data['entry']['info'])
+          next_entry = $("#entry-#{data['entry']['before']}")
+          if next_entry.length > 0
+            next_entry.before(data['entry']['info'])
+          else
+            $("#database").append(data['entry']['info'])
         update_unread_entries("database")
       $("#location").html(data['world_map']) if data['moved_to_room']
       $("#command_line").val("")

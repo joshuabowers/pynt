@@ -2,6 +2,7 @@ class Entry < Description
   field :name, type: String
   field :parameterized_name, type: String
   field :read, type: Boolean, default: false
+  field :updated, type: Boolean, default: false
   embeds_one :description, as: :descriptive
   embedded_in :definable, polymorphic: true
   
