@@ -18,6 +18,14 @@ class Entry < Description
     self.description = Description.parse(data["info"])
   end
   
+  def updated!
+    self.update_attributes!(read: false, updated: true)
+  end
+  
+  def read!
+    self.update_attributes!(read: true, updated: false)
+  end
+  
   def to_s(game_state)
     description.try(:to_s, game_state)
   end

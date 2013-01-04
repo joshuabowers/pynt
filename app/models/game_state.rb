@@ -9,8 +9,7 @@ class GameState
   field :updated_variables, type: Hash
   field :moved_to_room_id, type: Moped::BSON::ObjectId
   embeds_one :command
-  embeds_one :entry, as: :definable
-  # embeds_one :removed_item, as: :inventory, class_name: "Item"
+  embeds_one :entry, as: :definable, cascade_callbacks: true
   
   delegate :items, :variables, :current_room, :game, to: :game_save
   delegate :referent, :event, to: :command

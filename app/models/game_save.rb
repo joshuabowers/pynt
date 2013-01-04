@@ -62,7 +62,7 @@ class GameSave
   end
   
   def read_entry!(entry_name)
-    entries.where(parameterized_name: entry_name).first.update_attributes!(read: true)
+    entries.where(parameterized_name: entry_name).first.read!
   end
   
   def generate_map(options = {})
