@@ -25,7 +25,7 @@ class Room < Widget
         "hint" => "",
         "description" => ""
       }
-    }.stringify_keys.to_yaml
+    }.to_yaml
   end
 private
   def parse_yaml
