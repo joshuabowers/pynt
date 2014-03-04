@@ -1,0 +1,2 @@
+Fabricator(:determiner) do
+end

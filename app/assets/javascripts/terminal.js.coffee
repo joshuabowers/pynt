@@ -22,7 +22,7 @@ $ ->
     update_unread_entries("database")
     
     # A handler for marking database entries as read; also opens and closes entries.
-    $("#database dt").live "click", ->
+    $("#database dt").on "click", ->
       if $(this).hasClass "have-not-read"
         id = this.id.replace(/^entry-/, '')
         read_entry_path = $("meta[name='read_entry_path']").attr("content")

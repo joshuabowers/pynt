@@ -43,3 +43,6 @@ $ ->
         "Cmd-Enter": (cm) ->
           CodeMirror.commands["goLineEnd"](cm)
           CodeMirror.commands["newlineAndIndent"](cm)
+    # $("form").on "resize", ->
+    #   editor.refresh()
+    editor.refresh()

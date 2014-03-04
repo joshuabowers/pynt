@@ -23,6 +23,11 @@ class Command
     self.object_name = on.join(" ")
   end
   
+  def parse_mk2(command_line)
+    s = Rails.configuration.default_link_grammar_dictionary.parse(command_line)
+    Word.analyze_sentence(s)
+  end
+  
   def referent
     @referent ||= game_state.locate_widget(object_name)
   end

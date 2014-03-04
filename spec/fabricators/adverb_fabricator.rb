@@ -1,0 +1,2 @@
+Fabricator(:adverb) do
+end

@@ -1,0 +1,2 @@
+Fabricator(:adjective) do
+end

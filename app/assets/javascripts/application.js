@@ -14,7 +14,9 @@
 //= require jquery_ujs
 //= require underscore
 //= require codemirror
-//= require codemirror/utils/multiplex
 //= require codemirror/modes/yaml
 //= require codemirror/modes/markdown
 //= require_tree .
+
+
+// require codemirror/utils/multiplexz

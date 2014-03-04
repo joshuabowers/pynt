@@ -1,0 +1,1 @@
+Pynt::Application.config.default_link_grammar_dictionary = LinkParser::Dictionary.new
